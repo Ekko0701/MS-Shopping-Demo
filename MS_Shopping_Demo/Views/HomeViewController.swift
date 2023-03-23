@@ -6,11 +6,24 @@
 //
 
 import UIKit
+import RxViewController
+import RxSwift
 
 class HomeViewController: BaseViewController {
     
     // MARK: Properties
-    private lazy var collectionView: UICollectionView! = nil
+    private var collectionView: UICollectionView!
+    let viewModel: HomeViewModelType
+    
+    // MARK: Initilizer
+    init(viewModel: HomeViewModelType = HomeViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: View lifecycle
     override func viewDidLoad() {
@@ -18,7 +31,7 @@ class HomeViewController: BaseViewController {
         self.view.backgroundColor = .white
         configureStyle()
         setupConstraints()
-        
+        setupBindings()
         //self.collectionView.dataSource = self
     }
     
@@ -37,6 +50,29 @@ extension HomeViewController {
     }
     
     private func generateCollectionViewLayout() {
+        
+    }
+}
+
+// MARK: - Rx Setup
+extension HomeViewController {
+    func setupBindings() {
+        let firstLoad = rx.viewWillAppear
+            .take(1)
+            .map { _ in () }
+        
+//        let reload = collectionView.refreshControl?.rx
+//            .controlEvent(.valueChanged)
+//            .map{_ in ()} ?? Observable.just(())
+        
+        firstLoad
+            .bind(to: viewModel.fetchHome)
+            .disposed(by: disposeBag)
+        
+        viewModel.pushBanners.subscribe { result in
+            print(result)
+        }.disposed(by: disposeBag)
+        
         
     }
 }
