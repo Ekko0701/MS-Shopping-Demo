@@ -1,0 +1,6 @@
+framework module Pods_MS_Shopping_Demo {
+  umbrella header "Pods-MS_Shopping_Demo-umbrella.h"
+
+  export *
+  module * { export * }
+}
