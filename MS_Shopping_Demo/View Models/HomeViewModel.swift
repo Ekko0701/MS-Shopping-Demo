@@ -33,42 +33,24 @@ class HomeViewModel: HomeViewModelType {
         let fetching = PublishSubject<Void>()
         
         let homeDatas = BehaviorSubject<HomeModel>(value: HomeModel(banners: [], goods: []))
-        //let banners = BehaviorSubject<[BannerModel]>(value: [])
-        //let goods = BehaviorSubject<[GoodsModel]>(value: [])
+        
         let error = PublishSubject<Error>()
         
+        
+        // API 호출
         fetchHome = fetching.asObserver()
         
         fetching
             .flatMap(domain.fetchHomes)
             .do(onError: { err in error.onNext(err) })
-                .subscribe(onNext: homeDatas.onNext)
+            .subscribe(onNext: homeDatas.onNext)
                 .disposed(by: disposeBag)
         
-//        fetching
-//            .flatMap(domain.fetchHomes)
-//            .map { $0.banners }
-//            .do(onError: { err in error.onNext(err)})
-//            .subscribe(onNext: banners.onNext)
-//            .disposed(by: disposeBag)
+        // PUSH
+        pushBanners = homeDatas.map({ result in result.banners })
                 
-//        fetching
-//                .flatMap(domain.fetchHomes)
-//                .map { $0.goods }
-//                .do(onError: { err in error.onNext(err)})
-//                .subscribe(onNext: goods.onNext)
-//                .disposed(by: disposeBag)
-                    
-        //pushBanners = banners
-        //pushGoods = goods
+        pushGoods = homeDatas.map({ result in result.goods })
                 
-                pushBanners = homeDatas.map({ result in
-                    result.banners
-                })
-                
-                pushGoods = homeDatas.map({ result in
-                    result.goods
-                })
         errorMessage = error.map { $0 as NSError }
     }
 }
