@@ -18,24 +18,29 @@ final class GoodsCell: UICollectionViewCell {
         $0.backgroundColor = .systemBlue
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(systemName: "house.fill")
+        $0.layer.cornerRadius = 4
+        $0.clipsToBounds = true
     }
     
     private var priceStack = UIStackView().then {
         $0.backgroundColor = .clear
         $0.distribution = .fillProportionally
+        $0.spacing = 4
     }
     
     private var discountPercentageLabel = UILabel().then {
-        $0.font = UIFont.boldSystemFont(ofSize: 15)
-        $0.textColor = .systemRed
+        $0.font = UIFont.boldSystemFont(ofSize: 18)
+        $0.textColor = .accentRed
     }
     
     private var priceLabel = UILabel().then {
-        $0.textColor = .black
+        $0.font = UIFont.boldSystemFont(ofSize: 18)
+        $0.textColor = .text_primary
     }
     
     private var titleLabel = UILabel().then {
-        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 13)
+        $0.textColor = .text_secondary
         $0.numberOfLines = 3
     }
     
@@ -43,19 +48,27 @@ final class GoodsCell: UICollectionViewCell {
         $0.axis = .horizontal
         $0.backgroundColor = .clear
         $0.distribution = .fillProportionally
+        $0.spacing = 5
     }
     
     private var isNewView = UIView().then {
+        $0.layer.addBorder(width: 0.2, color: .text_primary, radius: 2)
         $0.backgroundColor = .clear
     }
     
     private var isnewLabel = UILabel().then {
-        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 10)
+        $0.textColor = .text_primary
         $0.text = "NEW"
     }
     
     private var sellCountLabel = UILabel().then {
-        $0.textColor = .systemGray
+        $0.font = UIFont.systemFont(ofSize: 12)
+        $0.textColor = .text_secondary
+    }
+    
+    private var separatorView = UIView().then {
+        $0.backgroundColor = .systemGray4
     }
     
     override init(frame: CGRect) {
@@ -73,6 +86,7 @@ final class GoodsCell: UICollectionViewCell {
         self.contentView.addSubview(priceStack)
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(additionalStack)
+        self.contentView.addSubview(separatorView)
         
         self.isNewView.addSubview(isnewLabel)
         
@@ -82,19 +96,19 @@ final class GoodsCell: UICollectionViewCell {
     
     private func setupConstraints() {
         goodsImage.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(20)
             make.width.equalToSuperview().multipliedBy(0.2)
             make.height.equalTo(goodsImage.snp.width).multipliedBy(1)
             make.leading.equalToSuperview().offset(16)
         }
         
         priceStack.snp.makeConstraints { make in
-            make.top.equalTo(goodsImage.snp.top)
+            make.top.equalTo(goodsImage.snp.top).offset(2)
             make.leading.equalTo(goodsImage.snp.trailing).offset(16)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(priceStack.snp.bottom).offset(16)
+            make.top.equalTo(priceStack.snp.bottom).offset(8)
             make.leading.equalTo(priceStack.snp.leading)
             make.trailing.equalToSuperview().offset(-32)
         }
@@ -103,6 +117,12 @@ final class GoodsCell: UICollectionViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.leading.equalTo(priceStack.snp.leading)
             make.bottom.equalToSuperview().offset(-16)
+        }
+        
+        separatorView.snp.makeConstraints { make in
+            make.top.equalTo(additionalStack.snp.bottom).offset(20)
+            make.height.equalTo(0.2)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
@@ -120,7 +140,7 @@ final class GoodsCell: UICollectionViewCell {
             return
         }
         discountPercentageLabel.text = String((100 - (100 * price) / actualPrice)) + "%"
-        priceLabel.text = String(price)
+        priceLabel.text = price.numberStringWithComma()
         
         guard let goodsTitle = viewModel.name else {
             titleLabel.text = nil
@@ -135,10 +155,11 @@ final class GoodsCell: UICollectionViewCell {
         if isNew == true {
             isNewView.addSubview(isnewLabel)
             isnewLabel.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+                make.top.equalToSuperview().offset(2)
+                make.leading.equalToSuperview().offset(5)
+                make.centerX.centerY.equalToSuperview()
             }
             additionalStack.addArrangedSubview(isNewView)
-            print("추가")
         }
         
         guard let sellCount = viewModel.sell_count else {
@@ -146,7 +167,7 @@ final class GoodsCell: UICollectionViewCell {
         }
         
         if sellCount >= 10 {
-            sellCountLabel.text = String(sellCount) + "구매중"
+            sellCountLabel.text = sellCount.numberStringWithComma() + "개 구매중"
             additionalStack.addArrangedSubview(sellCountLabel)
         }
     }
