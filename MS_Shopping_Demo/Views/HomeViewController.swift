@@ -9,11 +9,20 @@ import UIKit
 import RxViewController
 import RxSwift
 
+
 class HomeViewController: BaseViewController {
     
     // MARK: Properties
     private var homeCollectionView: UICollectionView!
     let viewModel: HomeViewModelType
+    
+    enum HomeSection: CaseIterable {
+        case banner
+        case goods
+    }
+    
+    typealias HomeDataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>
+    var dataSource: HomeDataSource! = nil
     
     // MARK: Initilizer
     init(viewModel: HomeViewModelType = HomeViewModel()) {
@@ -33,6 +42,7 @@ class HomeViewController: BaseViewController {
         configureStyle()
         setupConstraints()
         setupBindings()
+        setupSnapshot()
     }
     
     // MARK: Configuration methods
@@ -41,7 +51,7 @@ class HomeViewController: BaseViewController {
     
     override func setupConstraints() {
         self.view.addSubview(homeCollectionView)
-        
+
         homeCollectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -57,10 +67,14 @@ extension HomeViewController {
         // Register
         collectionView.register(BannerCell.self, forCellWithReuseIdentifier: BannerCell.identifier)
         collectionView.register(GoodsCell.self, forCellWithReuseIdentifier: GoodsCell.identifier)
+        collectionView.dataSource = dataSource
         
         homeCollectionView = collectionView
+        dataSource = setupDiffableDataSource()
+        homeCollectionView.dataSource = dataSource
     }
     
+    /** Compositional 레이아웃 생성*/
     private func generateLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             
@@ -88,7 +102,52 @@ extension HomeViewController {
             }
         }
     }
+    
+    /** DiffableDataSource 생성 */
+    
+    
+    private func setupDiffableDataSource() -> UICollectionViewDiffableDataSource<HomeSection, AnyHashable> {
+        var homedDataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>
+        homedDataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: homeCollectionView, cellProvider: { collectionView, indexPath, item in
+            if let bannerItem = item as? BannerModel {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCell.identifier, for: indexPath) as? BannerCell else { return UICollectionViewCell() }
+                
+                cell.configure(with: bannerItem)
+                return cell
+            } else if let goodsItem = item as? GoodsModel {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoodsCell.identifier, for: indexPath) as? GoodsCell else { return UICollectionViewCell() }
+                cell.configure(with: goodsItem)
+                
+                return cell
+            }
+            
+            return nil
+        })
+        
+        return homedDataSource
+    }
+    
+    private func setupSnapshot() {
+        var sections = HomeSection.allCases
+        var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
+        
+        snapshot.appendSections([.banner, .goods])
+        snapshot.appendItems([
+                        BannerModel(id:0, image: "1번"),
+                        BannerModel(id:1, image: "2번"),
+                        BannerModel(id:2, image: "3번"),
+                        BannerModel(id:3, image: "1번"),
+        ], toSection: .banner)
+        
+        snapshot.appendItems([
+            GoodsModel(id: 0, name: "상품1", image: "상품1", actual_price: 1000, price: 1200, is_new: true, sell_count: 0)
+        ], toSection: .goods)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
 }
+
+
 
 // MARK: - Rx Setup
 extension HomeViewController {

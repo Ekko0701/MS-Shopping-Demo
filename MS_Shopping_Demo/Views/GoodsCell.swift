@@ -66,6 +66,10 @@ final class GoodsCell: UICollectionViewCell {
         
     }
     
+    func configure(with viewModel: GoodsModel) {
+        priceLabel.text = viewModel.image
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
     }
