@@ -26,6 +26,7 @@ final class GoodsCell: UICollectionViewCell {
     }
     
     private var discountPercentageLabel = UILabel().then {
+        $0.font = UIFont.boldSystemFont(ofSize: 15)
         $0.textColor = .systemRed
     }
     
