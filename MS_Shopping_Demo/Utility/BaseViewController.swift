@@ -40,7 +40,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureStyle()
-        setupConstraints()
+        //setupConstraints()
     }
     
     /** View 스타일 설정 */

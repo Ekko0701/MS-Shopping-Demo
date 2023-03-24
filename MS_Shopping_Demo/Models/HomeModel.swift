@@ -14,12 +14,12 @@ struct HomeModel: Decodable {
     var goods: [GoodsModel]
 }
 
-struct BannerModel: Decodable {
+struct BannerModel: Decodable, Hashable {
     var id: Int?
     var image: String?
 }
 
-struct GoodsModel: Decodable {
+struct GoodsModel: Decodable, Hashable {
     var id: Int?
     var name: String?
     var image: String?
