@@ -99,12 +99,9 @@ extension HomeViewController {
                 return section
             } else {
                 
-                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                item.contentInsets.trailing = 16
-                item.contentInsets.bottom = 16
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.3)), subitems: [item])
+                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150)))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets.leading = 16
                 
                 return section
             }
