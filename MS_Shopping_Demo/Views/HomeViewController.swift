@@ -23,6 +23,7 @@ class HomeViewController: BaseViewController {
     
     typealias HomeDataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>
     var dataSource: HomeDataSource! = nil
+    var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
     
     // MARK: Initilizer
     init(viewModel: HomeViewModelType = HomeViewModel()) {
@@ -37,12 +38,18 @@ class HomeViewController: BaseViewController {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        snapshot.appendSections([.banner, .goods])
+        
         self.view.backgroundColor = .white
         configureCollectionView()
         configureStyle()
         setupConstraints()
         setupBindings()
-        setupSnapshot()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     // MARK: Configuration methods
@@ -71,6 +78,7 @@ extension HomeViewController {
         
         homeCollectionView = collectionView
         dataSource = setupDiffableDataSource()
+        dataSource.apply(snapshot, animatingDifferences: true)
         homeCollectionView.dataSource = dataSource
     }
     
@@ -113,9 +121,11 @@ extension HomeViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCell.identifier, for: indexPath) as? BannerCell else { return UICollectionViewCell() }
                 
                 cell.configure(with: bannerItem)
+                
                 return cell
             } else if let goodsItem = item as? GoodsModel {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoodsCell.identifier, for: indexPath) as? GoodsCell else { return UICollectionViewCell() }
+                
                 cell.configure(with: goodsItem)
                 
                 return cell
@@ -127,10 +137,9 @@ extension HomeViewController {
         return homedDataSource
     }
     
+    /**
+    ///사용하지 않는 코드입니다.
     private func setupSnapshot() {
-        var sections = HomeSection.allCases
-        var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
-        
         snapshot.appendSections([.banner, .goods])
         snapshot.appendItems([
                         BannerModel(id:0, image: "1번"),
@@ -145,6 +154,7 @@ extension HomeViewController {
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
+    */
 }
 
 
@@ -164,10 +174,19 @@ extension HomeViewController {
             .bind(to: viewModel.fetchHome)
             .disposed(by: disposeBag)
         
-        viewModel.pushBanners.subscribe { result in
-            print(result)
+        
+        viewModel.pushBanners.bind{ [weak self] value in
+            self?.snapshot.appendItems(value, toSection: .banner)
+            self?.snapshot.reloadSections([.banner])
+            self?.dataSource.apply(self!.snapshot)
         }.disposed(by: disposeBag)
         
+        viewModel.pushGoods.bind{ [weak self] value in
+            self?.snapshot.appendItems(value, toSection: .goods)
+            self?.snapshot.reloadSections([.banner, .goods])
+            self?.dataSource.apply(self!.snapshot)
+
+        }.disposed(by: disposeBag)
         
     }
 }

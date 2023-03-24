@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 final class BannerCell: UICollectionViewCell {
     static let identifier = "BannerCell"
@@ -15,10 +16,6 @@ final class BannerCell: UICollectionViewCell {
     private var bannerImage = UIImageView().then {
         $0.image = UIImage(named: "BannerSample")
         $0.contentMode = .scaleAspectFit
-    }
-    
-    private var testLabel = UILabel().then {
-        $0.backgroundColor = .cyan
     }
     
     override init(frame: CGRect) {
@@ -33,21 +30,17 @@ final class BannerCell: UICollectionViewCell {
     
     private func configureStyle() {
         self.contentView.addSubview(bannerImage)
-        self.contentView.addSubview(testLabel)
     }
     
     private func setupConstraints() {
         bannerImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        testLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
     }
     
     func configure(with viewModel: BannerModel) {
-        testLabel.text = viewModel.image
+        guard let url = viewModel.image else { return }
+        bannerImage.kf.setImage(with: URL(string: url))
     }
     
     override func prepareForReuse() {
