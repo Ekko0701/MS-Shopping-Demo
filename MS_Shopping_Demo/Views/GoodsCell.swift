@@ -68,7 +68,14 @@ final class GoodsCell: UICollectionViewCell {
     }
     
     private var separatorView = UIView().then {
-        $0.backgroundColor = .systemGray4
+        $0.backgroundColor = .systemGray3
+    }
+    
+    private var zzimButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)), for: .normal)
+        $0.contentVerticalAlignment = .fill
+        $0.contentHorizontalAlignment = .fill
+        $0.tintColor = UIColor.white
     }
     
     override init(frame: CGRect) {
@@ -87,6 +94,7 @@ final class GoodsCell: UICollectionViewCell {
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(additionalStack)
         self.contentView.addSubview(separatorView)
+        self.contentView.addSubview(zzimButton)
         
         self.isNewView.addSubview(isnewLabel)
         
@@ -123,6 +131,13 @@ final class GoodsCell: UICollectionViewCell {
             make.top.equalTo(additionalStack.snp.bottom).offset(20)
             make.height.equalTo(0.2)
             make.leading.trailing.equalToSuperview()
+        }
+        
+        zzimButton.snp.makeConstraints { make in
+            make.top.equalTo(goodsImage.snp.top).offset(8)
+            make.trailing.equalTo(goodsImage.snp.trailing).offset(-8)
+            make.width.equalTo(goodsImage.snp.width).multipliedBy(0.3)
+            make.height.equalTo(zzimButton.snp.width).multipliedBy(0.9)
         }
     }
     
