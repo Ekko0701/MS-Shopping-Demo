@@ -77,6 +77,9 @@ extension HomeViewController {
         collectionView.dataSource = dataSource
         
         homeCollectionView = collectionView
+        
+        homeCollectionView.delegate = self
+        
         dataSource = setupDiffableDataSource()
         dataSource.apply(snapshot, animatingDifferences: true)
         homeCollectionView.dataSource = dataSource
@@ -186,4 +189,12 @@ extension HomeViewController {
         }.disposed(by: disposeBag)
         
     }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("Scrolling")
+    }
+    
+    
 }
