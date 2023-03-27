@@ -19,7 +19,7 @@ struct BannerModel: Decodable, Hashable {
     var image: String?
 }
 
-struct NewGoodsModel: Decodable {
+struct GoodModel: Decodable {
     var goods: [GoodsModel]
 }
 

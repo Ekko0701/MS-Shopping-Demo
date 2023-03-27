@@ -181,14 +181,14 @@ extension HomeViewController: UICollectionViewDelegate {
         //print("OffsetY: \(offsetY), contentHeight: \(contentHeight), visibleHeight: \(visibleHeight)")
         if offsetY > contentHeight - visibleHeight {
             print("새로운 데이터 로드가 필요")
-            viewModel.fetchNewGoods.onNext(10)
+            viewModel.fetchNewGoods.onNext(Void())
             
-            viewModel.pushNewGoods.bind{ [weak self] value in
-                self?.snapshot.appendItems(value, toSection: .goods)
-                self?.snapshot.reloadSections([.banner, .goods])
-                self?.dataSource.apply(self!.snapshot)
-
-            }.disposed(by: disposeBag)
+//            viewModel.pushNewGoods.bind{ [weak self] value in
+//                self?.snapshot.appendItems(value, toSection: .goods)
+//                self?.snapshot.reloadSections([.banner, .goods])
+//                self?.dataSource.apply(self!.snapshot)
+//
+//            }.disposed(by: disposeBag)
             
         }
     }
