@@ -16,6 +16,7 @@ final class GoodsCell: UICollectionViewCell {
     static let identifier = "ItemCell"
     
     var disposeBag = DisposeBag()
+    //let onData: AnyObserver<ViewGoods>
     
     private var goodsImage = UIImageView().then {
         $0.backgroundColor = .systemBlue
@@ -144,21 +145,26 @@ final class GoodsCell: UICollectionViewCell {
         }
     }
     
-    func configure(with viewModel: GoodsModel) {
+    func configure(with viewModel: ViewGoods) {
+        
         guard let url = viewModel.image else {
             goodsImage.image = UIImage(systemName: "house")
             return
         }
         goodsImage.kf.setImage(with: URL(string: url))
         
-        guard let actualPrice = viewModel.actual_price,
-              let price = viewModel.price else {
-            discountPercentageLabel.text = nil
+        guard let actualPrice = viewModel.actual_price else {
             priceLabel.text = nil
             return
         }
-        discountPercentageLabel.text = String((100 - (100 * price) / actualPrice)) + "%"
-        priceLabel.text = price.numberStringWithComma()
+        
+        if let discountPercentage = viewModel.discount_percentage {
+            discountPercentageLabel.text = String(discountPercentage) + "%"
+        }
+        
+        if let actualPrice = viewModel.actual_price {
+            priceLabel.text = actualPrice.numberStringWithComma()
+        }
         
         guard let goodsTitle = viewModel.name else {
             titleLabel.text = nil
@@ -195,5 +201,11 @@ final class GoodsCell: UICollectionViewCell {
         isNewView.removeFromSuperview()
         sellCountLabel.removeFromSuperview()
         disposeBag = DisposeBag()
+    }
+}
+
+extension GoodsCell {
+    func setupBindings() {
+        
     }
 }

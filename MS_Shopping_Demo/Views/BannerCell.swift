@@ -9,9 +9,13 @@ import UIKit
 import SnapKit
 import Then
 import Kingfisher
+import RxSwift
+import RxRelay
 
 final class BannerCell: UICollectionViewCell {
     static let identifier = "BannerCell"
+    var disposeBag = DisposeBag()
+    let viewModelRelay = PublishRelay<ViewBanner>()
     
     private var bannerImage = UIImageView().then {
         $0.image = UIImage(named: "BannerSample")
@@ -19,9 +23,14 @@ final class BannerCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
+        //let data = PublishRelay<ViewBanner>()
+        //onData = data
+        
         super.init(frame: frame)
+        
         configureStyle()
         setupConstraints()
+        configureRelay()
     }
     
     required init?(coder: NSCoder) {
@@ -38,13 +47,30 @@ final class BannerCell: UICollectionViewCell {
         }
     }
     
-    func configure(with viewModel: BannerModel) {
+    // (1)
+    func configure(with viewModel: ViewBanner) {
         guard let url = viewModel.image else { return }
         bannerImage.kf.setImage(with: URL(string: url))
     }
     
+    // (2)
+    func configureRelay() {
+        viewModelRelay.asDriver(onErrorJustReturn: ViewBanner(BannerModel()))
+            .drive(onNext: { [weak self] model in
+                if let url = model.image {
+                    self?.bannerImage.kf.setImage(with: URL(string: url))
+                } else {
+                    self?.bannerImage.image = UIImage(systemName: "house") // placeholder
+                }
+            }).disposed(by: disposeBag)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
+}
+
+extension BannerCell {
 }
 
