@@ -12,8 +12,8 @@ import RxRelay
 protocol HomeViewModelType {
     // INPUT
     var fetchHome: AnyObserver<Void> { get }
-    var fetchNewGoods: AnyObserver<Void> { get } // 새로운 goods를 로드할때 사용 ID를 함께 전달 받아야 함
-    
+    var fetchNewGoods: AnyObserver<Void> { get }
+    var touchZzimButton: AnyObserver<ViewGoods> { get } // 찜 버튼을 눌렀을 경우
     
     // OUTPUT
     var pushBanners: Observable<[ViewBanner]> { get }
@@ -29,6 +29,8 @@ class HomeViewModel: HomeViewModelType {
     // INPUT
     var fetchHome: RxSwift.AnyObserver<Void>
     var fetchNewGoods: RxSwift.AnyObserver<Void>
+    var touchZzimButton: RxSwift.AnyObserver<ViewGoods>
+    
     
     // OUTPUT
     var pushBanners: RxSwift.Observable<[ViewBanner]>
@@ -40,6 +42,7 @@ class HomeViewModel: HomeViewModelType {
     init(domain: HomeServiceProtocol = HomeService()) {
         let fetching = PublishSubject<Void>()
         let newFetching = PublishSubject<Void>()
+        let touchingZzimButton = PublishSubject<ViewGoods>()
         
         let homeDatas = BehaviorSubject<HomeModel>(value: HomeModel(banners: [], goods: []))
         
@@ -53,6 +56,8 @@ class HomeViewModel: HomeViewModelType {
         // API 호출
         fetchHome = fetching.asObserver()
         fetchNewGoods = newFetching.asObserver()
+        
+        
         
         fetching
             .do(onNext: { _ in activating.onNext(true) })
@@ -84,8 +89,67 @@ class HomeViewModel: HomeViewModelType {
                     goods.onNext(currentGoods)
                 }).disposed(by: disposeBag)
     
+        // 찜
+        touchZzimButton = touchingZzimButton.asObserver()
                 
+//                touchingZzimButton.map { viewGoods in
+//                    let currentState = viewGoods.isZzim
+//                    viewGoods.updateZzim(!currentState)
+//                }
+//                touchingZzimButton.map { viewGoods in
+//                    var touched = viewGoods
+//                    touched.updateZzim(!touched.isZzim)
+//                    return touched
+//                }.withLatestFrom(goods) { touched, goods -> [ViewGoods] in
+//                    goods.map {
+//                        if $0.identifier == touched.identifier {
+//                            return touched
+//                        }
+//                    }
+//                }
+//        touchingZzimButton
+//                .map { viewGoods in
+//                    let touched = viewGoods
+//                    return touched.updateZzim(!touched.isZzim)
+//                }
+//                .withLatestFrom(goods) { (touched: ViewGoods, goods: [ViewGoods]) -> [ViewGoods] in
+//                    var updatedGoods = goods
+//                    if let index = updatedGoods.firstIndex(where: { $0.id == touched.id }) {
+//                        print("인덱스 : \(index)")
+//                        updatedGoods[index] = touched
+//                    }
+//                    print("업데이트된 배열입니다. \(updatedGoods)")
+//                    return updatedGoods
+//                }
+//                .subscribe(onNext: goods.onNext)
+//                .disposed(by: disposeBag)
+                
+//        touchingZzimButton
+//                .flatMapLatest { viewGoods -> Observable<[ViewGoods]> in
+//                    let touched = viewGoods.updateZzim(!viewGoods.isZzim)
+//                    var updateGoods = try! goods.value()
+//                    if let index = updateGoods.firstIndex(where: { $0.id == touched.id }) {
+//                        updateGoods[index] = touched
+//                    }
+//                    print("업데이트된 배열입니다. \(updateGoods)")
+//                    return .just(updateGoods)
+//                }
+//                .subscribe(onNext: goods.onNext)
+//                .disposed(by: disposeBag)
+                touchingZzimButton
+                    .withLatestFrom(goods) { touched, goods in
+                        var updatedGoods = goods
+                        if let index = updatedGoods.firstIndex(where: { $0.id == touched.id }) {
+                            let newTouched = touched.updateZzim(!touched.isZzim)
+                            updatedGoods[index] = newTouched
+                        }
+                        print("업데이트된 배열입니다. \(updatedGoods)")
+                        return updatedGoods
+                    }
+                    .subscribe(onNext: goods.onNext)
+                    .disposed(by: disposeBag)
         
+        // OUTPUT
         // PUSH
         pushBanners = homeDatas.map({ $0.banners.map{ ViewBanner($0)} })
         
