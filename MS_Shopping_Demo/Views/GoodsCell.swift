@@ -10,9 +10,12 @@ import UIKit
 import SnapKit
 import Then
 import Kingfisher
+import RxSwift
 
 final class GoodsCell: UICollectionViewCell {
     static let identifier = "ItemCell"
+    
+    var disposeBag = DisposeBag()
     
     private var goodsImage = UIImageView().then {
         $0.backgroundColor = .systemBlue
@@ -189,5 +192,8 @@ final class GoodsCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        isNewView.removeFromSuperview()
+        sellCountLabel.removeFromSuperview()
+        disposeBag = DisposeBag()
     }
 }

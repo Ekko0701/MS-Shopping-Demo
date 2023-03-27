@@ -12,6 +12,7 @@ import RxSwift
 
 protocol HomeServiceProtocol {
     func fetchHomes() -> Observable<HomeModel>
+    func fetchGoods(lastId: Int) -> Observable<GoodModel>
 }
 
 class HomeService: HomeServiceProtocol {
@@ -46,6 +47,45 @@ class HomeService: HomeServiceProtocol {
                 return completion(nil, data)
             }
             
+        }
+    }
+    
+    // -------------
+    func fetchGoods(lastId: Int) -> Observable<GoodModel> {
+        return Observable.create { (observer) -> Disposable in
+            self.fetchGoods(lastId: lastId) { (error, data) in
+                if let error = error {
+                    observer.onError(error)
+                }
+                
+                if let data = data {
+                    observer.onNext(data)
+                }
+                
+                observer.onCompleted()
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    private func fetchGoods(lastId: Int, completion: @escaping((Error?, GoodModel?) -> Void)) {
+        let urlString = "https://d2bab9i9pr8lds.cloudfront.net/api/home/goods"
+        guard let url = URL(string: urlString) else { return completion(NSError(domain: "no url", code: 404, userInfo: nil), nil)}
+        
+        let parameter: Parameters = [
+            "lastId" : String(lastId)
+        ]
+        
+        AF.request(url, method: HTTPMethod.get, parameters: parameter, encoding: URLEncoding.default, headers: nil,interceptor: nil,requestModifier: nil).responseDecodable(of: GoodModel.self) { response in
+            if let error = response.error {
+                print(error)
+                return completion(error, nil)
+            }
+            
+            if let data = response.value {
+                return completion(nil, data)
+            }
         }
     }
 }

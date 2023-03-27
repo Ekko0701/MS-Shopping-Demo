@@ -25,6 +25,8 @@ class HomeViewController: BaseViewController {
     var dataSource: HomeDataSource! = nil
     var snapshot = NSDiffableDataSourceSnapshot<HomeSection, AnyHashable>()
     
+    var isLoadedHome: Bool = false
+    
     // MARK: Initilizer
     init(viewModel: HomeViewModelType = HomeViewModel()) {
         self.viewModel = viewModel
@@ -44,8 +46,9 @@ class HomeViewController: BaseViewController {
         self.view.backgroundColor = .white
         configureCollectionView()
         configureStyle()
-        setupConstraints()
+        
         setupBindings()
+        setupConstraints()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -77,8 +80,11 @@ extension HomeViewController {
         collectionView.dataSource = dataSource
         
         homeCollectionView = collectionView
+        
+        homeCollectionView.delegate = self
+        
         dataSource = setupDiffableDataSource()
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: false)
         homeCollectionView.dataSource = dataSource
     }
     
@@ -88,8 +94,6 @@ extension HomeViewController {
             
             if sectionNumber == 0 {
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-                //item.contentInsets.trailing = 2
-                //item.contentInsets.bottom = 16
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.7)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
@@ -133,25 +137,6 @@ extension HomeViewController {
         
         return homedDataSource
     }
-    
-    /**
-    ///사용하지 않는 코드입니다.
-    private func setupSnapshot() {
-        snapshot.appendSections([.banner, .goods])
-        snapshot.appendItems([
-                        BannerModel(id:0, image: "1번"),
-                        BannerModel(id:1, image: "2번"),
-                        BannerModel(id:2, image: "3번"),
-                        BannerModel(id:3, image: "1번"),
-        ], toSection: .banner)
-        
-        snapshot.appendItems([
-            GoodsModel(id: 0, name: "상품1", image: "상품1", actual_price: 1000, price: 1200, is_new: true, sell_count: 0)
-        ], toSection: .goods)
-        
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    */
 }
 
 
@@ -171,6 +156,9 @@ extension HomeViewController {
             .bind(to: viewModel.fetchHome)
             .disposed(by: disposeBag)
         
+        viewModel.activated.bind { [weak self] isActie in
+            self?.isLoadedHome = isActie
+        }.disposed(by: disposeBag)
         
         viewModel.pushBanners.bind{ [weak self] value in
             self?.snapshot.appendItems(value, toSection: .banner)
@@ -181,9 +169,31 @@ extension HomeViewController {
         viewModel.pushGoods.bind{ [weak self] value in
             self?.snapshot.appendItems(value, toSection: .goods)
             self?.snapshot.reloadSections([.banner, .goods])
-            self?.dataSource.apply(self!.snapshot)
+            self?.dataSource.apply(self!.snapshot, animatingDifferences: false)
 
         }.disposed(by: disposeBag)
         
+        
+    
     }
 }
+
+extension HomeViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let visibleHeight = scrollView.frame.height
+        
+        if (offsetY > contentHeight - visibleHeight) && !isLoadedHome{
+            viewModel.fetchNewGoods.onNext(Void())
+        }
+    }
+}
+
+// MARK: - 페이징
+extension HomeViewController {
+    func loadNewGoods() {
+        
+    }
+}
+

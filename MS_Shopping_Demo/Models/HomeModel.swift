@@ -19,6 +19,10 @@ struct BannerModel: Decodable, Hashable {
     var image: String?
 }
 
+struct GoodModel: Decodable {
+    var goods: [GoodsModel]
+}
+
 struct GoodsModel: Decodable, Hashable {
     var id: Int?
     var name: String?
