@@ -81,7 +81,7 @@ extension HomeViewController {
         homeCollectionView.delegate = self
         
         dataSource = setupDiffableDataSource()
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: false)
         homeCollectionView.dataSource = dataSource
     }
     
@@ -136,25 +136,6 @@ extension HomeViewController {
         
         return homedDataSource
     }
-    
-    /**
-    ///사용하지 않는 코드입니다.
-    private func setupSnapshot() {
-        snapshot.appendSections([.banner, .goods])
-        snapshot.appendItems([
-                        BannerModel(id:0, image: "1번"),
-                        BannerModel(id:1, image: "2번"),
-                        BannerModel(id:2, image: "3번"),
-                        BannerModel(id:3, image: "1번"),
-        ], toSection: .banner)
-        
-        snapshot.appendItems([
-            GoodsModel(id: 0, name: "상품1", image: "상품1", actual_price: 1000, price: 1200, is_new: true, sell_count: 0)
-        ], toSection: .goods)
-        
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    */
 }
 
 
@@ -193,8 +174,30 @@ extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("Scrolling")
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let visibleHeight = scrollView.frame.height
+        
+        //print("OffsetY: \(offsetY), contentHeight: \(contentHeight), visibleHeight: \(visibleHeight)")
+        if offsetY > contentHeight - visibleHeight {
+            print("새로운 데이터 로드가 필요")
+            viewModel.fetchNewGoods.onNext(10)
+            
+            viewModel.pushNewGoods.bind{ [weak self] value in
+                self?.snapshot.appendItems(value, toSection: .goods)
+                self?.snapshot.reloadSections([.banner, .goods])
+                self?.dataSource.apply(self!.snapshot)
+
+            }.disposed(by: disposeBag)
+            
+        }
     }
-    
-    
 }
+
+// MARK: - 페이징
+extension HomeViewController {
+    func loadNewGoods() {
+        
+    }
+}
+

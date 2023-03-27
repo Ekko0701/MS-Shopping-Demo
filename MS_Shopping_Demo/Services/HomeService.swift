@@ -12,6 +12,7 @@ import RxSwift
 
 protocol HomeServiceProtocol {
     func fetchHomes() -> Observable<HomeModel>
+    func fetchGoods(lastId: Int) -> Observable<NewGoodsModel>
 }
 
 class HomeService: HomeServiceProtocol {
@@ -50,7 +51,7 @@ class HomeService: HomeServiceProtocol {
     }
     
     // -------------
-    func fetchGoods(lastId: Int) -> Observable<GoodsModel> {
+    func fetchGoods(lastId: Int) -> Observable<NewGoodsModel> {
         return Observable.create { (observer) -> Disposable in
             self.fetchGoods(lastId: lastId) { (error, data) in
                 if let error = error {
@@ -68,16 +69,17 @@ class HomeService: HomeServiceProtocol {
         }
     }
     
-    private func fetchGoods(lastId: Int, completion: @escaping((Error?, GoodsModel?) -> Void)) {
+    private func fetchGoods(lastId: Int, completion: @escaping((Error?, NewGoodsModel?) -> Void)) {
         let urlString = "https://d2bab9i9pr8lds.cloudfront.net/api/home/goods"
         guard let url = URL(string: urlString) else { return completion(NSError(domain: "no url", code: 404, userInfo: nil), nil)}
         
         let parameter: Parameters = [
-            "lastId" : lastId
+            "lastId" : String(lastId)
         ]
         
-        AF.request(url, method: HTTPMethod.get, parameters: parameter, encoding: JSONEncoding.default, headers: nil,interceptor: nil,requestModifier: nil).responseDecodable(of: GoodsModel.self) { response in
+        AF.request(url, method: HTTPMethod.get, parameters: parameter, encoding: URLEncoding.default, headers: nil,interceptor: nil,requestModifier: nil).responseDecodable(of: NewGoodsModel.self) { response in
             if let error = response.error {
+                print(error)
                 return completion(error, nil)
             }
             
