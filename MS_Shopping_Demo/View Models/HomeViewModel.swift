@@ -16,8 +16,8 @@ protocol HomeViewModelType {
     
     
     // OUTPUT
-    var pushBanners: Observable<[BannerModel]> { get }
-    var pushGoods: Observable<[GoodsModel]> { get }
+    var pushBanners: Observable<[ViewBanner]> { get }
+    var pushGoods: Observable<[ViewGoods]> { get }
     var errorMessage: Observable<NSError> { get }
     
     var activated: Observable<Bool> { get }
@@ -31,8 +31,8 @@ class HomeViewModel: HomeViewModelType {
     var fetchNewGoods: RxSwift.AnyObserver<Void>
     
     // OUTPUT
-    var pushBanners: RxSwift.Observable<[BannerModel]>
-    var pushGoods: RxSwift.Observable<[GoodsModel]>
+    var pushBanners: RxSwift.Observable<[ViewBanner]>
+    var pushGoods: RxSwift.Observable<[ViewGoods]>
     var errorMessage: RxSwift.Observable<NSError>
     
     var activated: RxSwift.Observable<Bool>
@@ -42,9 +42,8 @@ class HomeViewModel: HomeViewModelType {
         let newFetching = PublishSubject<Void>()
         
         let homeDatas = BehaviorSubject<HomeModel>(value: HomeModel(banners: [], goods: []))
-        let newGoodsDatas = BehaviorSubject<GoodModel>(value: GoodModel(goods: []))
         
-        let goods = BehaviorSubject<[GoodsModel]>(value: [])
+        let goods = BehaviorSubject<[ViewGoods]>(value: [])
         
         let activating = BehaviorSubject<Bool>(value: false)
         
@@ -65,6 +64,7 @@ class HomeViewModel: HomeViewModelType {
         
         // homeDatas의 상품 목록만 goods가 구독
         homeDatas.flatMap { Observable<[GoodsModel]>.just($0.goods) }
+            .map({ $0.map { ViewGoods($0) } })
             .subscribe(onNext: goods.onNext)
             .disposed(by: disposeBag)
         
@@ -74,18 +74,21 @@ class HomeViewModel: HomeViewModelType {
                 let currentGoods = try! goods.value()
                 let lastId = currentGoods.last?.id
                 return domain.fetchGoods(lastId: lastId!)}
+            .map({ goodModel in
+                goodModel.goods.map { ViewGoods($0) }
+            })
             .do(onNext: { _ in activating.onNext(false)})
-            .subscribe { goodModel in
-                goodModel.map { value in
+                .subscribe(onNext: { viewGoods in
                     var currentGoods = try! goods.value()
-                    currentGoods.append(contentsOf: value.goods)
-                    goods.onNext(currentGoods) }
-            }.disposed(by: disposeBag)
+                    currentGoods.append(contentsOf: viewGoods)
+                    goods.onNext(currentGoods)
+                }).disposed(by: disposeBag)
     
                 
         
         // PUSH
-        pushBanners = homeDatas.map({ result in result.banners })
+        pushBanners = homeDatas.map({ $0.banners.map{ ViewBanner($0)} })
+        
         pushGoods = goods
         
         activated = activating.distinctUntilChanged()

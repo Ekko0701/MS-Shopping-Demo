@@ -113,21 +113,21 @@ extension HomeViewController {
     }
     
     /** DiffableDataSource 생성 */
-    
-    
     private func setupDiffableDataSource() -> UICollectionViewDiffableDataSource<HomeSection, AnyHashable> {
         var homedDataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>
         homedDataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: homeCollectionView, cellProvider: { collectionView, indexPath, item in
-            if let bannerItem = item as? BannerModel {
+            if let bannerItem = item as? ViewBanner {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCell.identifier, for: indexPath) as? BannerCell else { return UICollectionViewCell() }
-                
-                cell.configure(with: bannerItem)
+                //cell.configure(with: bannerItem) // (1)
+                cell.relayViewModel.accept(bannerItem) // (2) Rx를 이용해 cell 내부에서 바인딩
                 
                 return cell
-            } else if let goodsItem = item as? GoodsModel {
+            } else if let goodsItem = item as? ViewGoods {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoodsCell.identifier, for: indexPath) as? GoodsCell else { return UICollectionViewCell() }
                 
-                cell.configure(with: goodsItem)
+                cell.configure(with: goodsItem) // (1)
+                //cell.relayViewModel.accept(goodsItem)
+                
                 
                 return cell
             }
