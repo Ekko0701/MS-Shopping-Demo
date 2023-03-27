@@ -26,7 +26,7 @@ struct ViewGoods: Hashable {
         self.name = item.name
         self.image = item.image
         self.actual_price = item.actual_price
-        self.discount_percentage = ((100 - (100 * (item.price ?? 0)) / (item.actual_price ?? 0)))
+        self.discount_percentage = ((100 - (100 * (item.price ?? 0)) / (item.actual_price ?? 1)))
         self.is_new = item.is_new
         self.sell_count = item.sell_count
     }

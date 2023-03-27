@@ -14,8 +14,9 @@ import RxRelay
 
 final class BannerCell: UICollectionViewCell {
     static let identifier = "BannerCell"
+    
     var disposeBag = DisposeBag()
-    let viewModelRelay = PublishRelay<ViewBanner>()
+    let relayViewModel = PublishRelay<ViewBanner>()
     
     private var bannerImage = UIImageView().then {
         $0.image = UIImage(named: "BannerSample")
@@ -23,9 +24,6 @@ final class BannerCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
-        //let data = PublishRelay<ViewBanner>()
-        //onData = data
-        
         super.init(frame: frame)
         
         configureStyle()
@@ -55,7 +53,7 @@ final class BannerCell: UICollectionViewCell {
     
     // (2)
     func configureRelay() {
-        viewModelRelay.asDriver(onErrorJustReturn: ViewBanner(BannerModel()))
+        relayViewModel.asDriver(onErrorJustReturn: ViewBanner(BannerModel()))
             .drive(onNext: { [weak self] model in
                 if let url = model.image {
                     self?.bannerImage.kf.setImage(with: URL(string: url))

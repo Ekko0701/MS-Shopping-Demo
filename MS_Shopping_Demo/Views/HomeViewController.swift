@@ -118,14 +118,16 @@ extension HomeViewController {
         homedDataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: homeCollectionView, cellProvider: { collectionView, indexPath, item in
             if let bannerItem = item as? ViewBanner {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCell.identifier, for: indexPath) as? BannerCell else { return UICollectionViewCell() }
-                //cell.configure(with: bannerItem) //  (1)
-                cell.viewModelRelay.accept(bannerItem) // (2) Rx를 이용해 cell 내부에서 바인딩
+                //cell.configure(with: bannerItem) // (1)
+                cell.relayViewModel.accept(bannerItem) // (2) Rx를 이용해 cell 내부에서 바인딩
                 
                 return cell
             } else if let goodsItem = item as? ViewGoods {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoodsCell.identifier, for: indexPath) as? GoodsCell else { return UICollectionViewCell() }
                 
-                cell.configure(with: goodsItem)
+                cell.configure(with: goodsItem) // (1)
+                //cell.relayViewModel.accept(goodsItem)
+                
                 
                 return cell
             }

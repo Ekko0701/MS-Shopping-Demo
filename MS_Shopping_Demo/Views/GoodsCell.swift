@@ -11,12 +11,13 @@ import SnapKit
 import Then
 import Kingfisher
 import RxSwift
+import RxRelay
 
 final class GoodsCell: UICollectionViewCell {
     static let identifier = "ItemCell"
     
     var disposeBag = DisposeBag()
-    //let onData: AnyObserver<ViewGoods>
+    let relayViewModel = PublishRelay<ViewGoods>()
     
     private var goodsImage = UIImageView().then {
         $0.backgroundColor = .systemBlue
@@ -86,6 +87,7 @@ final class GoodsCell: UICollectionViewCell {
         super.init(frame: frame)
         configureStyle()
         setupConstraints()
+        configureRelay()
     }
     
     required init?(coder: NSCoder) {
@@ -205,7 +207,49 @@ final class GoodsCell: UICollectionViewCell {
 }
 
 extension GoodsCell {
-    func setupBindings() {
-        
+    func configureRelay() {
+        relayViewModel.asDriver(onErrorJustReturn: ViewGoods(GoodsModel()))
+            .drive(onNext: {[weak self] model in
+                
+                // image
+                if let url = model.image {
+                    self?.goodsImage.kf.setImage(with: URL(string: url))
+                } else {
+                    self?.goodsImage.image = UIImage(systemName: "house") // placeholder
+                }
+                
+                // discount percentage
+                self?.discountPercentageLabel.text = String(model.discount_percentage ??  0) + "%"
+                
+                // actual price
+                if let actualPrice = model.actual_price {
+                    self?.priceLabel.text = actualPrice.numberStringWithComma()
+                } else {
+                    self?.priceLabel.text = "가격 정보 없음"
+                }
+                
+                // title
+                self?.titleLabel.text = model.name ?? "상품 정보 없음"
+                
+                // is new
+                if let isNew = model.is_new {
+                    if isNew == true {
+                        //self?.isNewView.addSubview(self?.isnewLabel ?? nil)
+                        self?.isnewLabel.snp.makeConstraints { make in
+                            make.top.equalToSuperview().offset(2)
+                            make.leading.equalToSuperview().offset(5)
+                            make.centerX.centerY.equalToSuperview()
+                        }
+                        self?.additionalStack.addArrangedSubview(self!.isNewView)
+                    }
+                }
+                
+                if let sellCount = model.sell_count {
+                    if sellCount >= 10 {
+                        self?.sellCountLabel.text = sellCount.numberStringWithComma() + "개 구매중"
+                        self?.additionalStack.addArrangedSubview(self!.sellCountLabel)
+                    }
+                }
+            }).disposed(by: disposeBag)
     }
 }
