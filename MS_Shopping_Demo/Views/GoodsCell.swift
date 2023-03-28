@@ -205,11 +205,16 @@ final class GoodsCell: UICollectionViewCell {
             sellCountLabel.text = sellCount.numberStringWithComma() + "개 구매중"
             additionalStack.addArrangedSubview(sellCountLabel)
         }
+        
+        if viewModel.isZzim {
+            zzimButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)), for: .normal)
+            zzimButton.tintColor = .accentRed
+        }
     }
     
     @objc
     func touchZzim() {
-        print("찜 버튼 터치")
+        //print("찜 버튼 터치")
         zzim()
     }
     
@@ -217,6 +222,8 @@ final class GoodsCell: UICollectionViewCell {
         super.prepareForReuse()
         isNewView.removeFromSuperview()
         sellCountLabel.removeFromSuperview()
+        zzimButton.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)), for: .normal)
+        zzimButton.tintColor = .white
         disposeBag = DisposeBag()
     }
 }

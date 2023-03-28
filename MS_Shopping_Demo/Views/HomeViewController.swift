@@ -127,6 +127,8 @@ extension HomeViewController {
                 
                 cell.configure(with: goodsItem) // (1)
                 //cell.relayViewModel.accept(goodsItem)
+                
+                /// 찜 버튼 터치 
                 cell.zzimObservable
                     .map{ (goodsItem) }
                    // .bind(to: self.viewModel.touchZzimButton)

@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxRelay
+import RealmSwift
 
 protocol HomeViewModelType {
     // INPUT
@@ -142,8 +143,26 @@ class HomeViewModel: HomeViewModelType {
                         if let index = updatedGoods.firstIndex(where: { $0.id == touched.id }) {
                             let newTouched = touched.updateZzim(!touched.isZzim)
                             updatedGoods[index] = newTouched
+                            
+                            // MARK: Realm
+                            let realm = try! Realm()
+                            
+                            if let zzimGoods = realm.object(ofType: ZzimGoods.self, forPrimaryKey: newTouched.id) {
+                                print("이미 찜 목록에 있습니다.")
+                                try! realm.write {
+                                    realm.delete(zzimGoods)
+                                }
+                            } else {
+                                print("찜 목록에 추가합니다.")
+                                print(Realm.Configuration.defaultConfiguration.fileURL!)
+                                let zzimGoods = ZzimGoods()
+                                zzimGoods.id = newTouched.id
+                                try! realm.write {
+                                    realm.add(zzimGoods)
+                                }
+                            }
                         }
-                        print("업데이트된 배열입니다. \(updatedGoods)")
+                        //print("업데이트된 배열입니다. \(updatedGoods)")
                         return updatedGoods
                     }
                     .subscribe(onNext: goods.onNext)
@@ -153,7 +172,21 @@ class HomeViewModel: HomeViewModelType {
         // PUSH
         pushBanners = homeDatas.map({ $0.banners.map{ ViewBanner($0)} })
         
-        pushGoods = goods
+        pushGoods = goods.map({ allGoods in
+            let realm = try! Realm()
+            let allZzimGoods = realm.objects(ZzimGoods.self)
+            
+            var updatedGoods = try! goods.value()
+            
+            allZzimGoods.forEach { zzimGoods in
+                if let index = updatedGoods.firstIndex(where: { $0.id == zzimGoods.id }) {
+                    let newValue = updatedGoods[index].updateZzim(true)
+                    updatedGoods[index] = newValue
+                }
+            }
+            
+            return updatedGoods
+        })
         
         activated = activating.distinctUntilChanged()
         errorMessage = error.map { $0 as NSError }
