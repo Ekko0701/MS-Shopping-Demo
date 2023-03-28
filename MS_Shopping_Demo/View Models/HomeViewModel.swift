@@ -155,8 +155,8 @@ class HomeViewModel: HomeViewModelType {
                             } else {
                                 print("찜 목록에 추가합니다.")
                                 print(Realm.Configuration.defaultConfiguration.fileURL!)
-                                let zzimGoods = ZzimGoods()
-                                zzimGoods.id = newTouched.id
+                                
+                                let zzimGoods = ZzimGoods(newTouched)
                                 try! realm.write {
                                     realm.add(zzimGoods)
                                 }
