@@ -8,12 +8,14 @@
 import UIKit
 import RxViewController
 import RxSwift
+import RxCocoa
 
 
 class HomeViewController: BaseViewController {
     
     // MARK: Properties
     private var homeCollectionView: UICollectionView!
+    
     let viewModel: HomeViewModelType
     
     enum HomeSection: CaseIterable {
@@ -84,6 +86,9 @@ extension HomeViewController {
         
         // Attach
         homeCollectionView.delegate = self
+        
+        // Refresh Control
+        homeCollectionView.refreshControl = UIRefreshControl()
         
         // DataSource
         dataSource = setupDiffableDataSource()
@@ -160,16 +165,23 @@ extension HomeViewController {
             .take(1)
             .map { _ in () }
         
-//        let reload = collectionView.refreshControl?.rx
-//            .controlEvent(.valueChanged)
-//            .map{_ in ()} ?? Observable.just(())
+        let reload = homeCollectionView.refreshControl?.rx
+            .controlEvent(.valueChanged)
+            .map{_ in ()} ?? Observable.just(())
         
-        firstLoad
+        Observable.merge([firstLoad, reload])
             .bind(to: viewModel.fetchHome)
             .disposed(by: disposeBag)
         
-        viewModel.activated.bind { [weak self] isActie in
-            self?.isLoadedHome = isActie
+        viewModel.activated
+            .map { !$0 }
+            .do(onNext: { [weak self] finished in
+                if finished {
+                    self?.homeCollectionView.refreshControl?.endRefreshing()
+                }
+            })
+            .bind { [weak self] isActiv in
+            self?.isLoadedHome = !isActiv
         }.disposed(by: disposeBag)
         
         viewModel.pushBanners.bind{ [weak self] value in
@@ -179,6 +191,8 @@ extension HomeViewController {
         }.disposed(by: disposeBag)
         
         viewModel.pushGoods.bind{ [weak self] value in
+            self?.snapshot.deleteSections([.goods])
+            self?.snapshot.appendSections([.goods])
             self?.snapshot.appendItems(value, toSection: .goods)
             self?.snapshot.reloadSections([.banner, .goods])
             self?.dataSource.apply(self!.snapshot, animatingDifferences: false)
