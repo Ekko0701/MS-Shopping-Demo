@@ -32,7 +32,7 @@ struct ViewGoods: Hashable {
         self.sell_count = item.sell_count
         self.isZzim = false
     }
-//
+
     init(id: Int?, name: String?, image: String?, actual_price: Int?, discount_percentage: Int?, is_new: Bool?, sell_count: Int?, isZzim: Bool) {
         self.id = id
         self.name = name
@@ -42,6 +42,17 @@ struct ViewGoods: Hashable {
         self.is_new = is_new
         self.sell_count = sell_count
         self.isZzim = isZzim
+    }
+    
+    init(_ model: ZzimGoods) {
+        self.id = model.id
+        self.name = model.name
+        self.image = model.image
+        self.actual_price = model.actual_price
+        self.discount_percentage = model.discount_percentage
+        self.is_new = model.is_new
+        self.sell_count = model.sell_count
+        self.isZzim = true
     }
     
     func updateZzim(_ isZzim: Bool) -> ViewGoods {

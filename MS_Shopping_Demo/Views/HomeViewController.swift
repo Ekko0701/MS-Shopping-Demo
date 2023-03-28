@@ -79,16 +79,19 @@ extension HomeViewController {
         collectionView.register(GoodsCell.self, forCellWithReuseIdentifier: GoodsCell.identifier)
         collectionView.dataSource = dataSource
         
+        // Init
         homeCollectionView = collectionView
         
+        // Attach
         homeCollectionView.delegate = self
         
+        // DataSource
         dataSource = setupDiffableDataSource()
         dataSource.apply(snapshot, animatingDifferences: false)
         homeCollectionView.dataSource = dataSource
     }
     
-    /** Compositional 레이아웃 생성*/
+    /// Compositional Layout 생성
     private func generateLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             
@@ -102,7 +105,6 @@ extension HomeViewController {
                 
                 return section
             } else {
-                
                 let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150)))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
@@ -112,10 +114,10 @@ extension HomeViewController {
         }
     }
     
-    /** DiffableDataSource 생성 */
-    private func setupDiffableDataSource() -> UICollectionViewDiffableDataSource<HomeSection, AnyHashable> {
-        var homedDataSource: UICollectionViewDiffableDataSource<HomeSection, AnyHashable>
-        homedDataSource = UICollectionViewDiffableDataSource<HomeSection, AnyHashable>(collectionView: homeCollectionView, cellProvider: { collectionView, indexPath, item in
+    /// DiffableDataSource 생성
+    private func setupDiffableDataSource() -> HomeDataSource {
+        var homedDataSource: HomeDataSource
+        homedDataSource = HomeDataSource(collectionView: homeCollectionView, cellProvider: { collectionView, indexPath, item in
             if let bannerItem = item as? ViewBanner {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCell.identifier, for: indexPath) as? BannerCell else { return UICollectionViewCell() }
                 //cell.configure(with: bannerItem) // (1)
@@ -126,7 +128,7 @@ extension HomeViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoodsCell.identifier, for: indexPath) as? GoodsCell else { return UICollectionViewCell() }
                 
                 cell.configure(with: goodsItem) // (1)
-                //cell.relayViewModel.accept(goodsItem)
+                //cell.relayViewModel.accept(goodsItem) // (2)
                 
                 /// 찜 버튼 터치 
                 cell.zzimObservable
@@ -186,6 +188,7 @@ extension HomeViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
@@ -196,13 +199,6 @@ extension HomeViewController: UICollectionViewDelegate {
             viewModel.fetchNewGoods.onNext(Void())
         
         }
-    }
-}
-
-// MARK: - 페이징
-extension HomeViewController {
-    func loadNewGoods() {
-        
     }
 }
 
