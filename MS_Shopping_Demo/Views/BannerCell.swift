@@ -15,6 +15,7 @@ import RxRelay
 final class BannerCell: UICollectionViewCell {
     static let identifier = "BannerCell"
     
+    // MARK: - Properties
     var disposeBag = DisposeBag()
     let relayViewModel = PublishRelay<ViewBanner>()
     
@@ -23,6 +24,7 @@ final class BannerCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFit
     }
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,6 +37,7 @@ final class BannerCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Configuration methods
     private func configureStyle() {
         self.contentView.addSubview(bannerImage)
     }
@@ -67,8 +70,5 @@ final class BannerCell: UICollectionViewCell {
         super.prepareForReuse()
         disposeBag = DisposeBag()
     }
-}
-
-extension BannerCell {
 }
 

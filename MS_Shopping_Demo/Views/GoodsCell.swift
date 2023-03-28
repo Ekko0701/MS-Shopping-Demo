@@ -16,6 +16,7 @@ import RxRelay
 final class GoodsCell: UICollectionViewCell {
     static let identifier = "ItemCell"
     
+    // MARK: - Properties
     var disposeBag = DisposeBag()
     let relayViewModel = PublishRelay<ViewGoods>()
     
@@ -85,7 +86,7 @@ final class GoodsCell: UICollectionViewCell {
         $0.contentHorizontalAlignment = .fill
         $0.tintColor = UIColor.white
     }
-    
+    // MARK: - Initializer
     override init(frame: CGRect) {
         let zziming = PublishSubject<Void>()
         
@@ -103,6 +104,7 @@ final class GoodsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Configuration methods
     private func configureStyle() {
         self.contentView.addSubview(goodsImage)
         self.contentView.addSubview(priceStack)
@@ -211,12 +213,8 @@ final class GoodsCell: UICollectionViewCell {
             zzimButton.tintColor = .accentRed
         }
     }
+
     
-    @objc
-    func touchZzim() {
-        //print("찜 버튼 터치")
-        zzim()
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -228,6 +226,9 @@ final class GoodsCell: UICollectionViewCell {
     }
 }
 
+/**
+ 사용x) cell의 순서가 바뀌는 이슈가 있음
+ */
 extension GoodsCell {
     func configureRelay() {
         relayViewModel.asDriver(onErrorJustReturn: ViewGoods(GoodsModel()))
@@ -273,5 +274,20 @@ extension GoodsCell {
                     }
                 }
             }).disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Button Touch Actions
+extension GoodsCell {
+    @objc
+    func touchZzim() {
+        zzim()
+    }
+}
+
+// MARK: - Remove Zzim Button
+extension GoodsCell {
+    func removeZzimButton() {
+        self.zzimButton.removeFromSuperview()
     }
 }

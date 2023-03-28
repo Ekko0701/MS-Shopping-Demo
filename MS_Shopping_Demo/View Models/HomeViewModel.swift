@@ -40,6 +40,7 @@ class HomeViewModel: HomeViewModelType {
     
     var activated: RxSwift.Observable<Bool>
     
+    // MARK: - Initializer
     init(domain: HomeServiceProtocol = HomeService()) {
         let fetching = PublishSubject<Void>()
         let newFetching = PublishSubject<Void>()
@@ -93,83 +94,35 @@ class HomeViewModel: HomeViewModelType {
         // 찜
         touchZzimButton = touchingZzimButton.asObserver()
                 
-//                touchingZzimButton.map { viewGoods in
-//                    let currentState = viewGoods.isZzim
-//                    viewGoods.updateZzim(!currentState)
-//                }
-//                touchingZzimButton.map { viewGoods in
-//                    var touched = viewGoods
-//                    touched.updateZzim(!touched.isZzim)
-//                    return touched
-//                }.withLatestFrom(goods) { touched, goods -> [ViewGoods] in
-//                    goods.map {
-//                        if $0.identifier == touched.identifier {
-//                            return touched
-//                        }
-//                    }
-//                }
-//        touchingZzimButton
-//                .map { viewGoods in
-//                    let touched = viewGoods
-//                    return touched.updateZzim(!touched.isZzim)
-//                }
-//                .withLatestFrom(goods) { (touched: ViewGoods, goods: [ViewGoods]) -> [ViewGoods] in
-//                    var updatedGoods = goods
-//                    if let index = updatedGoods.firstIndex(where: { $0.id == touched.id }) {
-//                        print("인덱스 : \(index)")
-//                        updatedGoods[index] = touched
-//                    }
-//                    print("업데이트된 배열입니다. \(updatedGoods)")
-//                    return updatedGoods
-//                }
-//                .subscribe(onNext: goods.onNext)
-//                .disposed(by: disposeBag)
-                
-//        touchingZzimButton
-//                .flatMapLatest { viewGoods -> Observable<[ViewGoods]> in
-//                    let touched = viewGoods.updateZzim(!viewGoods.isZzim)
-//                    var updateGoods = try! goods.value()
-//                    if let index = updateGoods.firstIndex(where: { $0.id == touched.id }) {
-//                        updateGoods[index] = touched
-//                    }
-//                    print("업데이트된 배열입니다. \(updateGoods)")
-//                    return .just(updateGoods)
-//                }
-//                .subscribe(onNext: goods.onNext)
-//                .disposed(by: disposeBag)
-                touchingZzimButton
-                    .withLatestFrom(goods) { touched, goods in
-                        var updatedGoods = goods
-                        if let index = updatedGoods.firstIndex(where: { $0.id == touched.id }) {
-                            let newTouched = touched.updateZzim(!touched.isZzim)
-                            updatedGoods[index] = newTouched
+        touchingZzimButton
+                .withLatestFrom(goods) { touched, goods in
+                    var updatedGoods = goods
+                    if let index = updatedGoods.firstIndex(where: { $0.id == touched.id }) {
+                        let newTouched = touched.updateZzim(!touched.isZzim)
+                        updatedGoods[index] = newTouched
+                        
+                        // MARK: Realm
+                        let realm = try! Realm()
+                        
+                        if let zzimGoods = realm.object(ofType: ZzimGoods.self, forPrimaryKey: newTouched.id) {
+                            try! realm.write {
+                                realm.delete(zzimGoods)
+                            }
+                        } else {
+                            print(Realm.Configuration.defaultConfiguration.fileURL!)
                             
-                            // MARK: Realm
-                            let realm = try! Realm()
-                            
-                            if let zzimGoods = realm.object(ofType: ZzimGoods.self, forPrimaryKey: newTouched.id) {
-                                print("이미 찜 목록에 있습니다.")
-                                try! realm.write {
-                                    realm.delete(zzimGoods)
-                                }
-                            } else {
-                                print("찜 목록에 추가합니다.")
-                                print(Realm.Configuration.defaultConfiguration.fileURL!)
-                                let zzimGoods = ZzimGoods()
-                                zzimGoods.id = newTouched.id
-                                try! realm.write {
-                                    realm.add(zzimGoods)
-                                }
+                            let zzimGoods = ZzimGoods(newTouched)
+                            try! realm.write {
+                                realm.add(zzimGoods)
                             }
                         }
-                        //print("업데이트된 배열입니다. \(updatedGoods)")
-                        return updatedGoods
                     }
-                    .subscribe(onNext: goods.onNext)
-                    .disposed(by: disposeBag)
+                    return updatedGoods
+                }
+                .subscribe(onNext: goods.onNext)
+                .disposed(by: disposeBag)
         
         // OUTPUT
-        // PUSH
         pushBanners = homeDatas.map({ $0.banners.map{ ViewBanner($0)} })
         
         pushGoods = goods.map({ allGoods in
@@ -189,6 +142,7 @@ class HomeViewModel: HomeViewModelType {
         })
         
         activated = activating.distinctUntilChanged()
+        
         errorMessage = error.map { $0 as NSError }
     }
 }
