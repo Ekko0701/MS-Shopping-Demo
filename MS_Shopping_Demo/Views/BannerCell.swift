@@ -15,7 +15,7 @@ import RxRelay
 final class BannerCell: UICollectionViewCell {
     static let identifier = "BannerCell"
     
-    // MARK: - Properties
+    // MARK: Properties
     var disposeBag = DisposeBag()
     let relayViewModel = PublishRelay<ViewBanner>()
     
@@ -24,7 +24,7 @@ final class BannerCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFit
     }
     
-    // MARK: - Initializer
+    // MARK: Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         

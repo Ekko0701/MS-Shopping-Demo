@@ -16,7 +16,7 @@ import RxRelay
 final class GoodsCell: UICollectionViewCell {
     static let identifier = "ItemCell"
     
-    // MARK: - Properties
+    // MARK: Properties
     var disposeBag = DisposeBag()
     let relayViewModel = PublishRelay<ViewGoods>()
     
@@ -86,7 +86,7 @@ final class GoodsCell: UICollectionViewCell {
         $0.contentHorizontalAlignment = .fill
         $0.tintColor = UIColor.white
     }
-    // MARK: - Initializer
+    // MARK: Initializer
     override init(frame: CGRect) {
         let zziming = PublishSubject<Void>()
         

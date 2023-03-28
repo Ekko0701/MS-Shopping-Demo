@@ -9,7 +9,7 @@ import UIKit
 
 class ZzimViewController: BaseViewController {
 
-    // MARK: - Properties
+    // MARK: Properties
     private var zzimCollectionView: UICollectionView!
     let viewModel: ZzimViewModelType
     
@@ -21,7 +21,7 @@ class ZzimViewController: BaseViewController {
     var dataSource: ZzimDataSource! = nil
     var snapshot = NSDiffableDataSourceSnapshot<ZzimSection, ViewGoods>()
     
-    // MARK: - Initializer
+    // MARK: Initializer
     init(viewModel: ZzimViewModelType = ZzimViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -31,7 +31,7 @@ class ZzimViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - View lifeCycles
+    // MARK: View lifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,7 +40,7 @@ class ZzimViewController: BaseViewController {
         setupConstraints()
     }
     
-    // MARK: - Configure & Setup methods
+    // MARK: Configure & Setup methods
     override func configureStyle() {
         view.backgroundColor = .white
     }
