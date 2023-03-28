@@ -9,6 +9,15 @@ import UIKit
 
 class ZzimViewController: BaseViewController {
 
+    // MARK: - Properties
+    private var zzimCollectionView: UICollectionView!
+    
+    
+    // MARK: - Initializer
+    
+    // MARK: - View lifeCycles
+    
+    // MARK: - Configure & Setup methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -16,3 +25,7 @@ class ZzimViewController: BaseViewController {
     }
 }
 
+// MARK: - UICollectionView
+extension ZzimViewController {
+    
+}

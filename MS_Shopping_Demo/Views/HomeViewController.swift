@@ -128,6 +128,16 @@ extension HomeViewController {
                 cell.configure(with: goodsItem) // (1)
                 //cell.relayViewModel.accept(goodsItem)
                 
+                /// 찜 버튼 터치 
+                cell.zzimObservable
+                    .map{ (goodsItem) }
+                   // .bind(to: self.viewModel.touchZzimButton)
+                    .do(onNext: {[weak self] _ in
+                        self?.snapshot.deleteSections([.goods]) // 이거 매우매우 비 효율적.. ;;
+                        self?.snapshot.appendSections([.goods])
+                    })
+                        .subscribe(onNext: { self.viewModel.touchZzimButton.onNext($0)})
+                    .disposed(by: cell.disposeBag)
                 
                 return cell
             }
@@ -172,8 +182,6 @@ extension HomeViewController {
             self?.dataSource.apply(self!.snapshot, animatingDifferences: false)
 
         }.disposed(by: disposeBag)
-        
-        
     
     }
 }
@@ -186,6 +194,7 @@ extension HomeViewController: UICollectionViewDelegate {
         
         if (offsetY > contentHeight - visibleHeight) && !isLoadedHome{
             viewModel.fetchNewGoods.onNext(Void())
+        
         }
     }
 }

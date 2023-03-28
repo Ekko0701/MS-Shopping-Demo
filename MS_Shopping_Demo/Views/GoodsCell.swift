@@ -19,6 +19,9 @@ final class GoodsCell: UICollectionViewCell {
     var disposeBag = DisposeBag()
     let relayViewModel = PublishRelay<ViewGoods>()
     
+    private let zzim: () -> Void
+    let zzimObservable: Observable<Void>
+    
     private var goodsImage = UIImageView().then {
         $0.backgroundColor = .systemBlue
         $0.contentMode = .scaleAspectFit
@@ -84,7 +87,13 @@ final class GoodsCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
+        let zziming = PublishSubject<Void>()
+        
+        zzim = { zziming.onNext(()) }
+        zzimObservable = zziming
+        
         super.init(frame: frame)
+        zzimButton.addTarget(self, action: #selector(touchZzim), for: .touchUpInside)
         configureStyle()
         setupConstraints()
         configureRelay()
@@ -196,12 +205,25 @@ final class GoodsCell: UICollectionViewCell {
             sellCountLabel.text = sellCount.numberStringWithComma() + "개 구매중"
             additionalStack.addArrangedSubview(sellCountLabel)
         }
+        
+        if viewModel.isZzim {
+            zzimButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)), for: .normal)
+            zzimButton.tintColor = .accentRed
+        }
+    }
+    
+    @objc
+    func touchZzim() {
+        //print("찜 버튼 터치")
+        zzim()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         isNewView.removeFromSuperview()
         sellCountLabel.removeFromSuperview()
+        zzimButton.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)), for: .normal)
+        zzimButton.tintColor = .white
         disposeBag = DisposeBag()
     }
 }
