@@ -166,7 +166,7 @@ final class GoodsCell: UICollectionViewCell {
         }
         goodsImage.kf.setImage(with: URL(string: url))
         
-        guard let actualPrice = viewModel.actual_price else {
+        guard let _ = viewModel.actual_price else {
             priceLabel.text = nil
             return
         }
@@ -189,7 +189,8 @@ final class GoodsCell: UICollectionViewCell {
             print("nil입니다.")
             return
         }
-        if isNew == true {
+        
+        if isNew {
             isNewView.addSubview(isnewLabel)
             isnewLabel.snp.makeConstraints { make in
                 make.top.equalToSuperview().offset(2)

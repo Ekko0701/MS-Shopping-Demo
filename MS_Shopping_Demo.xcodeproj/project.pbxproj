@@ -18,6 +18,9 @@
 		6AD2003929D156D700F4372E /* ViewGoods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2003829D156D700F4372E /* ViewGoods.swift */; };
 		6AD95B4F29CD890F007F2B54 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD95B4E29CD890F007F2B54 /* UIColor+Ext.swift */; };
 		6AD95B5129CD925D007F2B54 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD95B5029CD925D007F2B54 /* Int+Ext.swift */; };
+		6ADDA3B129D2B5950085A474 /* BannerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADDA3B029D2B5950085A474 /* BannerModel.swift */; };
+		6ADDA3B329D2B5AD0085A474 /* GoodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADDA3B229D2B5AD0085A474 /* GoodModel.swift */; };
+		6ADDA3B529D2B5C50085A474 /* GoodsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADDA3B429D2B5C50085A474 /* GoodsModel.swift */; };
 		6AE43D8429CC2EA60058F5B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE43D8329CC2EA60058F5B7 /* AppDelegate.swift */; };
 		6AE43D8629CC2EA60058F5B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE43D8529CC2EA60058F5B7 /* SceneDelegate.swift */; };
 		6AE43D8829CC2EA60058F5B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE43D8729CC2EA60058F5B7 /* ViewController.swift */; };
@@ -43,6 +46,9 @@
 		6AD2003829D156D700F4372E /* ViewGoods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewGoods.swift; sourceTree = "<group>"; };
 		6AD95B4E29CD890F007F2B54 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		6AD95B5029CD925D007F2B54 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
+		6ADDA3B029D2B5950085A474 /* BannerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModel.swift; sourceTree = "<group>"; };
+		6ADDA3B229D2B5AD0085A474 /* GoodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodModel.swift; sourceTree = "<group>"; };
+		6ADDA3B429D2B5C50085A474 /* GoodsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsModel.swift; sourceTree = "<group>"; };
 		6AE43D8029CC2EA60058F5B7 /* MS_Shopping_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MS_Shopping_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE43D8329CC2EA60058F5B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AE43D8529CC2EA60058F5B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +172,9 @@
 			children = (
 				6A7F5E2429D264D90014CE24 /* Realm */,
 				6AE43DA829CC33930058F5B7 /* HomeModel.swift */,
+				6ADDA3B029D2B5950085A474 /* BannerModel.swift */,
+				6ADDA3B229D2B5AD0085A474 /* GoodModel.swift */,
+				6ADDA3B429D2B5C50085A474 /* GoodsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,8 +330,10 @@
 				6AA2C99029CC9E6A00D560FB /* GoodsCell.swift in Sources */,
 				6AE43D9F29CC31500058F5B7 /* BaseViewController.swift in Sources */,
 				6AE43DA729CC32F10058F5B7 /* HomeViewModel.swift in Sources */,
+				6ADDA3B529D2B5C50085A474 /* GoodsModel.swift in Sources */,
 				6AE43D8829CC2EA60058F5B7 /* ViewController.swift in Sources */,
 				6AE43D9D29CC31370058F5B7 /* CALayer+Ext.swift in Sources */,
+				6ADDA3B329D2B5AD0085A474 /* GoodModel.swift in Sources */,
 				6AD95B5129CD925D007F2B54 /* Int+Ext.swift in Sources */,
 				6AE43DA129CC317B0058F5B7 /* TabBarController.swift in Sources */,
 				6A7F5E2829D278010014CE24 /* ZzimViewModel.swift in Sources */,
@@ -336,6 +347,7 @@
 				6AE43DAC29CC39050058F5B7 /* HomeService.swift in Sources */,
 				6AE43DA929CC33930058F5B7 /* HomeModel.swift in Sources */,
 				6AE43D8629CC2EA60058F5B7 /* SceneDelegate.swift in Sources */,
+				6ADDA3B129D2B5950085A474 /* BannerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

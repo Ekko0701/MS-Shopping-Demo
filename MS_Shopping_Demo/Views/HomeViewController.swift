@@ -140,8 +140,8 @@ extension HomeViewController {
                     .map{ (goodsItem) }
                    // .bind(to: self.viewModel.touchZzimButton)
                     .do(onNext: {[weak self] _ in
-                        self?.snapshot.deleteSections([.goods]) // 이거 매우매우 비 효율적.. ;;
-                        self?.snapshot.appendSections([.goods])
+                        //self?.snapshot.deleteSections([.goods]) // 이거 매우매우 비 효율적.. ;;
+                        //self?.snapshot.appendSections([.goods])
                     })
                         .subscribe(onNext: { self.viewModel.touchZzimButton.onNext($0)})
                     .disposed(by: cell.disposeBag)
