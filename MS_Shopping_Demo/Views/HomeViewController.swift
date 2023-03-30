@@ -43,7 +43,7 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        snapshot.appendSections([.banner, .goods])
+        
         
         self.view.backgroundColor = .white
         configureCollectionView()
@@ -51,10 +51,6 @@ class HomeViewController: BaseViewController {
         
         setupBindings()
         setupConstraints()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     // MARK: Configuration methods
@@ -73,12 +69,18 @@ class HomeViewController: BaseViewController {
 // MARK: - UICollectionView
 extension HomeViewController {
     private func configureCollectionView() {
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: generateLayout())
+        let layout = generateLayout()
+        
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = .clear
         
         // Register
         collectionView.register(BannerCell.self, forCellWithReuseIdentifier: BannerCell.identifier)
         collectionView.register(GoodsCell.self, forCellWithReuseIdentifier: GoodsCell.identifier)
+        
+        collectionView.register(BannerPageLabelDecorationView.self, forSupplementaryViewOfKind: ElementKind.sectionFooter, withReuseIdentifier: BannerPageLabelDecorationView.identifier)
+        
         collectionView.dataSource = dataSource
         
         // Init
@@ -91,9 +93,16 @@ extension HomeViewController {
         homeCollectionView.refreshControl = UIRefreshControl()
         
         // DataSource
+        
+        snapshot.appendSections(HomeSection.allCases)
+        
         dataSource = setupDiffableDataSource()
         dataSource.apply(snapshot, animatingDifferences: false)
+        
+        
         homeCollectionView.dataSource = dataSource
+        
+        
     }
     
     /// Compositional Layout 생성
@@ -107,6 +116,17 @@ extension HomeViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 
                 section.orthogonalScrollingBehavior = .paging
+                
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: -30, trailing: 0)
+                
+                let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40))
+        
+                let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: ElementKind.sectionFooter, alignment: .bottom)
+                
+                sectionFooter.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: -30, trailing: 0)
+                sectionFooter.pinToVisibleBounds = true
+                
+                section.boundarySupplementaryItems = [sectionFooter]
                 
                 return section
             } else {
@@ -125,8 +145,8 @@ extension HomeViewController {
         homedDataSource = HomeDataSource(collectionView: homeCollectionView, cellProvider: { collectionView, indexPath, item in
             if let bannerItem = item as? ViewBanner {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCell.identifier, for: indexPath) as? BannerCell else { return UICollectionViewCell() }
-                //cell.configure(with: bannerItem) // (1)
-                cell.relayViewModel.accept(bannerItem) // (2) Rx를 이용해 cell 내부에서 바인딩
+                cell.configure(with: bannerItem) // (1)
+                //cell.relayViewModel.accept(bannerItem) // (2) Rx를 이용해 cell 내부에서 바인딩
                 
                 return cell
             } else if let goodsItem = item as? ViewGoods {
@@ -151,6 +171,14 @@ extension HomeViewController {
             
             return nil
         })
+        
+        homedDataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            if kind == ElementKind.sectionFooter {
+                return collectionView.dequeueReusableSupplementaryView(ofKind: ElementKind.sectionFooter, withReuseIdentifier: BannerPageLabelDecorationView.identifier, for: indexPath) as! BannerPageLabelDecorationView
+            }
+            
+            return nil
+        }
         
         return homedDataSource
     }
@@ -186,7 +214,7 @@ extension HomeViewController {
         
         viewModel.pushBanners.bind{ [weak self] value in
             self?.snapshot.appendItems(value, toSection: .banner)
-            self?.snapshot.reloadSections([.banner])
+            //self?.snapshot.reloadSections([.banner])
             self?.dataSource.apply(self!.snapshot)
         }.disposed(by: disposeBag)
         
@@ -194,7 +222,7 @@ extension HomeViewController {
             self?.snapshot.deleteSections([.goods])
             self?.snapshot.appendSections([.goods])
             self?.snapshot.appendItems(value, toSection: .goods)
-            self?.snapshot.reloadSections([.banner, .goods])
+            //self?.snapshot.reloadSections([.goods])
             self?.dataSource.apply(self!.snapshot, animatingDifferences: false)
 
         }.disposed(by: disposeBag)
@@ -209,9 +237,8 @@ extension HomeViewController: UICollectionViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let visibleHeight = scrollView.frame.height
         
-        if (offsetY > contentHeight - visibleHeight) && !isLoadedHome{
+        if (offsetY > contentHeight - visibleHeight) && !isLoadedHome {
             viewModel.fetchNewGoods.onNext(Void())
-        
         }
     }
 }
