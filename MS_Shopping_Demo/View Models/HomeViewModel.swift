@@ -16,6 +16,8 @@ protocol HomeViewModelType {
     var fetchNewGoods: AnyObserver<Void> { get }
     var touchZzimButton: AnyObserver<ViewGoods> { get } // 찜 버튼을 눌렀을 경우
     
+    var currentBannerPage: PublishSubject<Int> { get }
+    
     // OUTPUT
     var pushBanners: Observable<[ViewBanner]> { get }
     var pushGoods: Observable<[ViewGoods]> { get }
@@ -25,6 +27,7 @@ protocol HomeViewModelType {
 }
 
 class HomeViewModel: HomeViewModelType {
+    
     let disposeBag = DisposeBag()
     
     // INPUT
@@ -32,6 +35,7 @@ class HomeViewModel: HomeViewModelType {
     var fetchNewGoods: RxSwift.AnyObserver<Void>
     var touchZzimButton: RxSwift.AnyObserver<ViewGoods>
     
+    var currentBannerPage: RxSwift.PublishSubject<Int>
     
     // OUTPUT
     var pushBanners: RxSwift.Observable<[ViewBanner]>
@@ -50,6 +54,8 @@ class HomeViewModel: HomeViewModelType {
         
         let goods = BehaviorSubject<[ViewGoods]>(value: [])
         
+        let currentBanners = PublishSubject<Int>()
+        
         let activating = BehaviorSubject<Bool>(value: false)
         
         let error = PublishSubject<Error>()
@@ -59,7 +65,7 @@ class HomeViewModel: HomeViewModelType {
         fetchHome = fetching.asObserver()
         fetchNewGoods = newFetching.asObserver()
         
-        
+        currentBannerPage = currentBanners.asObserver()
         
         fetching
             .do(onNext: { _ in activating.onNext(true) })
