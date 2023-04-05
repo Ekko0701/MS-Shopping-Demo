@@ -53,6 +53,7 @@ class HomeService: HomeServiceProtocol {
                    interceptor: nil,
                    requestModifier: nil)
         .responseDecodable(of: HomeModel.self) { response in
+            print("응답 \(response.value)")
             if let error = response.error {
                 return completion(error, nil)
             }

@@ -7,6 +7,7 @@
 import Foundation
 
 final class MockURLProtocol: URLProtocol {
+    
     enum ResponseType {
         case error(Error)
         case success(HTTPURLResponse)
@@ -15,7 +16,6 @@ final class MockURLProtocol: URLProtocol {
     static var responseType: ResponseType!
     static var dtoType: MockDTOType!
     
-    // MARK: - @
     override class func canInit(with request: URLRequest) -> Bool {
         return true
     }
@@ -64,11 +64,11 @@ final class MockURLProtocol: URLProtocol {
     
     private func setUpMockData() -> Data? {
         let fileName: String = MockURLProtocol.dtoType.fileName
-        
+
         guard let file = Bundle.main.url(forResource: fileName, withExtension: nil) else {
             return Data()
         }
-        
+
         return try? Data(contentsOf: file)
     }
     
@@ -105,8 +105,4 @@ extension MockURLProtocol {
             }
         }
     }
-}
-
-extension MockURLProtocol {
-    
 }

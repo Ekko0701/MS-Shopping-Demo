@@ -11,6 +11,8 @@
 		69FAE837AB7B386ACC89EF7A /* Pods_HomeServiceTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B04C6D969105CB9213A9AE8 /* Pods_HomeServiceTests.framework */; };
 		6A10862629DBC1CF001F0CF3 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A10862529DBC1CF001F0CF3 /* MockURLProtocol.swift */; };
 		6A10863129DBFAE8001F0CF3 /* HomeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A10863029DBFAE8001F0CF3 /* HomeServiceTests.swift */; };
+		6A5AE79C29DCFA320095F395 /* home_mock.html in Resources */ = {isa = PBXBuildFile; fileRef = 6A5AE79B29DCFA320095F395 /* home_mock.html */; };
+		6A5AE7A429DD01980095F395 /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5AE7A329DD01980095F395 /* RealmTests.swift */; };
 		6A7F5E2129D1FD0F0014CE24 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7F5E2029D1FD0F0014CE24 /* Realm */; };
 		6A7F5E2329D1FD0F0014CE24 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7F5E2229D1FD0F0014CE24 /* RealmSwift */; };
 		6A7F5E2629D264FA0014CE24 /* ZzimGoods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F5E2529D264FA0014CE24 /* ZzimGoods.swift */; };
@@ -20,6 +22,8 @@
 		6AA99B8B29DC0A2C001CFE4D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6AA99B8A29DC0A2C001CFE4D /* Realm */; };
 		6AA99B8D29DC0A2C001CFE4D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6AA99B8C29DC0A2C001CFE4D /* RealmSwift */; };
 		6AA99BD729DC1ACB001CFE4D /* HomeNetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA99BD629DC1ACB001CFE4D /* HomeNetworkServiceTests.swift */; };
+		6AA99BDD29DC1BA4001CFE4D /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A10862829DBF429001F0CF3 /* mock.json */; };
+		6AA99BDF29DC1D9E001CFE4D /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A10862829DBF429001F0CF3 /* mock.json */; };
 		6AB3E3A629D54BF400F8E4BD /* BannerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3E3A529D54BF400F8E4BD /* BannerFooterView.swift */; };
 		6AB3E3A829D5796300F8E4BD /* ElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3E3A729D5796300F8E4BD /* ElementKind.swift */; };
 		6AD2003729D154FD00F4372E /* ViewBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2003629D154FD00F4372E /* ViewBanner.swift */; };
@@ -52,6 +56,13 @@
 			remoteGlobalIDString = 6AE43D7F29CC2EA60058F5B7;
 			remoteInfo = MS_Shopping_Demo;
 		};
+		6A5AE7A529DD01980095F395 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6AE43D7829CC2EA60058F5B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6AE43D7F29CC2EA60058F5B7;
+			remoteInfo = MS_Shopping_Demo;
+		};
 		6AA99BD829DC1ACB001CFE4D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6AE43D7829CC2EA60058F5B7 /* Project object */;
@@ -68,6 +79,9 @@
 		6A10862829DBF429001F0CF3 /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
 		6A10862E29DBFAE8001F0CF3 /* HomeServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A10863029DBFAE8001F0CF3 /* HomeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeServiceTests.swift; sourceTree = "<group>"; };
+		6A5AE79B29DCFA320095F395 /* home_mock.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = home_mock.html; sourceTree = "<group>"; };
+		6A5AE7A129DD01970095F395 /* RealmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A5AE7A329DD01980095F395 /* RealmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
 		6A7F5E2529D264FA0014CE24 /* ZzimGoods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzimGoods.swift; sourceTree = "<group>"; };
 		6A7F5E2729D278010014CE24 /* ZzimViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzimViewModel.swift; sourceTree = "<group>"; };
 		6AA2C98D29CC9E4600D560FB /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
@@ -118,6 +132,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A5AE79E29DD01970095F395 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AA99BD129DC1ACB001CFE4D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,8 +183,17 @@
 			children = (
 				6A10863029DBFAE8001F0CF3 /* HomeServiceTests.swift */,
 				6A10862829DBF429001F0CF3 /* mock.json */,
+				6A5AE79B29DCFA320095F395 /* home_mock.html */,
 			);
 			path = HomeServiceTests;
+			sourceTree = "<group>";
+		};
+		6A5AE7A229DD01980095F395 /* RealmTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A5AE7A329DD01980095F395 /* RealmTests.swift */,
+			);
+			path = RealmTests;
 			sourceTree = "<group>";
 		};
 		6A7F5E2429D264D90014CE24 /* Realm */ = {
@@ -188,6 +218,7 @@
 				6AE43D8229CC2EA60058F5B7 /* MS_Shopping_Demo */,
 				6A10862F29DBFAE8001F0CF3 /* HomeServiceTests */,
 				6AA99BD529DC1ACB001CFE4D /* HomeNetworkServiceTests */,
+				6A5AE7A229DD01980095F395 /* RealmTests */,
 				6AE43D8129CC2EA60058F5B7 /* Products */,
 				117C54C997EE26629893BBE7 /* Pods */,
 				8BFD8FB98B260567010CD0D3 /* Frameworks */,
@@ -200,6 +231,7 @@
 				6AE43D8029CC2EA60058F5B7 /* MS_Shopping_Demo.app */,
 				6A10862E29DBFAE8001F0CF3 /* HomeServiceTests.xctest */,
 				6AA99BD429DC1ACB001CFE4D /* HomeNetworkServiceTests.xctest */,
+				6A5AE7A129DD01970095F395 /* RealmTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -326,6 +358,24 @@
 			productReference = 6A10862E29DBFAE8001F0CF3 /* HomeServiceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6A5AE7A029DD01970095F395 /* RealmTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A5AE7A729DD01980095F395 /* Build configuration list for PBXNativeTarget "RealmTests" */;
+			buildPhases = (
+				6A5AE79D29DD01970095F395 /* Sources */,
+				6A5AE79E29DD01970095F395 /* Frameworks */,
+				6A5AE79F29DD01970095F395 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A5AE7A629DD01980095F395 /* PBXTargetDependency */,
+			);
+			name = RealmTests;
+			productName = RealmTests;
+			productReference = 6A5AE7A129DD01970095F395 /* RealmTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6AA99BD329DC1ACB001CFE4D /* HomeNetworkServiceTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AA99BDC29DC1ACB001CFE4D /* Build configuration list for PBXNativeTarget "HomeNetworkServiceTests" */;
@@ -381,6 +431,10 @@
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = 6AE43D7F29CC2EA60058F5B7;
 					};
+					6A5AE7A029DD01970095F395 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 6AE43D7F29CC2EA60058F5B7;
+					};
 					6AA99BD329DC1ACB001CFE4D = {
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = 6AE43D7F29CC2EA60058F5B7;
@@ -409,12 +463,22 @@
 				6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */,
 				6A10862D29DBFAE8001F0CF3 /* HomeServiceTests */,
 				6AA99BD329DC1ACB001CFE4D /* HomeNetworkServiceTests */,
+				6A5AE7A029DD01970095F395 /* RealmTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6A10862C29DBFAE8001F0CF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6AA99BDD29DC1BA4001CFE4D /* mock.json in Resources */,
+				6A5AE79C29DCFA320095F395 /* home_mock.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A5AE79F29DD01970095F395 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -434,6 +498,7 @@
 			files = (
 				6AE43D9029CC2EA60058F5B7 /* LaunchScreen.storyboard in Resources */,
 				6AE43D8D29CC2EA60058F5B7 /* Assets.xcassets in Resources */,
+				6AA99BDF29DC1D9E001CFE4D /* mock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +594,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A5AE79D29DD01970095F395 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A5AE7A429DD01980095F395 /* RealmTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AA99BD029DC1ACB001CFE4D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -576,6 +649,11 @@
 			isa = PBXTargetDependency;
 			target = 6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */;
 			targetProxy = 6A10863229DBFAE8001F0CF3 /* PBXContainerItemProxy */;
+		};
+		6A5AE7A629DD01980095F395 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */;
+			targetProxy = 6A5AE7A529DD01980095F395 /* PBXContainerItemProxy */;
 		};
 		6AA99BD929DC1ACB001CFE4D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -632,6 +710,50 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ekko.HomeServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MS_Shopping_Demo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MS_Shopping_Demo";
+			};
+			name = Release;
+		};
+		6A5AE7A829DD01980095F395 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 34JS69S5XZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ekko.RealmTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MS_Shopping_Demo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MS_Shopping_Demo";
+			};
+			name = Debug;
+		};
+		6A5AE7A929DD01980095F395 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 34JS69S5XZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ekko.RealmTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -870,6 +992,15 @@
 			buildConfigurations = (
 				6A10863529DBFAE8001F0CF3 /* Debug */,
 				6A10863629DBFAE8001F0CF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A5AE7A729DD01980095F395 /* Build configuration list for PBXNativeTarget "RealmTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A5AE7A829DD01980095F395 /* Debug */,
+				6A5AE7A929DD01980095F395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
