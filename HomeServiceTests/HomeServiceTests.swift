@@ -36,8 +36,12 @@ final class HomeServiceTests: XCTestCase {
         disposeBag = nil
     }
     
-    // JSON Parsing Test도 포함.
-    // With Mock
+    /// Without network
+    /// session 커스텀 후 테스트
+    /// MockURLProtocol 사용
+    /// 테스트 내용
+    /// - response 내용 확인
+    /// - Json 파싱 확인
     func test_fetchHome_Observable에_next이벤트_잘전달되는지테스트() {
         // given
         MockURLProtocol.responseWithDTO(type: .home)
@@ -62,6 +66,8 @@ final class HomeServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
+    /// With Network
+    /// fetchHome()이 올바른 Observable을 반환하는지 테스트
     func test_fetchHomes_정상작동여부테스트() {
         let expectation = XCTestExpectation(description: "fetchHome 비동기 테스트")
         
@@ -78,6 +84,8 @@ final class HomeServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
+    /// With Network
+    /// fetchGoods()가 올바른 Observable을 반환하는지 테스트
     func test_fetchGoods_정상작동여부테스트() {
         let expectation = XCTestExpectation(description: "fetchGoods 비동기 테스트")
         
