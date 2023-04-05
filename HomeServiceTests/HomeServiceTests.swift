@@ -36,7 +36,9 @@ final class HomeServiceTests: XCTestCase {
         disposeBag = nil
     }
     
-    func test_request_responseCode_200() {
+    // JSON Parsing Test도 포함.
+    // With Mock
+    func test_fetchHome_Observable에_next이벤트_잘전달되는지테스트() {
         // given
         MockURLProtocol.responseWithDTO(type: .home)
         MockURLProtocol.responseWithStatusCode(code: 200)
@@ -56,6 +58,36 @@ final class HomeServiceTests: XCTestCase {
                 print("complete")
             }
         }.disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    func test_fetchHomes_정상작동여부테스트() {
+        let expectation = XCTestExpectation(description: "fetchHome 비동기 테스트")
+        
+        let observable = sut.fetchHomes()
+        
+        _ = observable.subscribe(onNext: { homeModel in
+            XCTAssertNotNil(homeModel)
+            XCTAssertEqual(homeModel.banners.count, 3)
+            XCTAssertEqual(homeModel.goods[0].id, 1)
+            expectation.fulfill()
+        })
+        .disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    func test_fetchGoods_정상작동여부테스트() {
+        let expectation = XCTestExpectation(description: "fetchGoods 비동기 테스트")
+        
+        let observable = sut.fetchGoods(lastId: 10)
+        
+        _ = observable.subscribe(onNext: { goodModel in
+            XCTAssertNotNil(goodModel)
+            XCTAssertEqual(goodModel.goods.count, 10)
+            expectation.fulfill()
+        })
         
         wait(for: [expectation], timeout: 5)
     }

@@ -13,6 +13,7 @@
 		6A10863129DBFAE8001F0CF3 /* HomeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A10863029DBFAE8001F0CF3 /* HomeServiceTests.swift */; };
 		6A5AE79C29DCFA320095F395 /* home_mock.html in Resources */ = {isa = PBXBuildFile; fileRef = 6A5AE79B29DCFA320095F395 /* home_mock.html */; };
 		6A5AE7A429DD01980095F395 /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5AE7A329DD01980095F395 /* RealmTests.swift */; };
+		6A5AE7B129DD08320095F395 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5AE7B029DD08320095F395 /* HomeViewModelTests.swift */; };
 		6A7F5E2129D1FD0F0014CE24 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7F5E2029D1FD0F0014CE24 /* Realm */; };
 		6A7F5E2329D1FD0F0014CE24 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7F5E2229D1FD0F0014CE24 /* RealmSwift */; };
 		6A7F5E2629D264FA0014CE24 /* ZzimGoods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F5E2529D264FA0014CE24 /* ZzimGoods.swift */; };
@@ -21,7 +22,6 @@
 		6AA2C99029CC9E6A00D560FB /* GoodsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA2C98F29CC9E6A00D560FB /* GoodsCell.swift */; };
 		6AA99B8B29DC0A2C001CFE4D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6AA99B8A29DC0A2C001CFE4D /* Realm */; };
 		6AA99B8D29DC0A2C001CFE4D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6AA99B8C29DC0A2C001CFE4D /* RealmSwift */; };
-		6AA99BD729DC1ACB001CFE4D /* HomeNetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA99BD629DC1ACB001CFE4D /* HomeNetworkServiceTests.swift */; };
 		6AA99BDD29DC1BA4001CFE4D /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A10862829DBF429001F0CF3 /* mock.json */; };
 		6AA99BDF29DC1D9E001CFE4D /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A10862829DBF429001F0CF3 /* mock.json */; };
 		6AB3E3A629D54BF400F8E4BD /* BannerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3E3A529D54BF400F8E4BD /* BannerFooterView.swift */; };
@@ -63,7 +63,7 @@
 			remoteGlobalIDString = 6AE43D7F29CC2EA60058F5B7;
 			remoteInfo = MS_Shopping_Demo;
 		};
-		6AA99BD829DC1ACB001CFE4D /* PBXContainerItemProxy */ = {
+		6A5AE7B229DD08320095F395 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6AE43D7829CC2EA60058F5B7 /* Project object */;
 			proxyType = 1;
@@ -82,6 +82,8 @@
 		6A5AE79B29DCFA320095F395 /* home_mock.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = home_mock.html; sourceTree = "<group>"; };
 		6A5AE7A129DD01970095F395 /* RealmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A5AE7A329DD01980095F395 /* RealmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
+		6A5AE7AE29DD08320095F395 /* HomeViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A5AE7B029DD08320095F395 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		6A7F5E2529D264FA0014CE24 /* ZzimGoods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzimGoods.swift; sourceTree = "<group>"; };
 		6A7F5E2729D278010014CE24 /* ZzimViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzimViewModel.swift; sourceTree = "<group>"; };
 		6AA2C98D29CC9E4600D560FB /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
@@ -89,8 +91,6 @@
 		6AA99B8E29DC0A63001CFE4D /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA99B9029DC0A63001CFE4D /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA99B9229DC0A96001CFE4D /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AA99BD429DC1ACB001CFE4D /* HomeNetworkServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeNetworkServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AA99BD629DC1ACB001CFE4D /* HomeNetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkServiceTests.swift; sourceTree = "<group>"; };
 		6AB3E3A529D54BF400F8E4BD /* BannerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerFooterView.swift; sourceTree = "<group>"; };
 		6AB3E3A729D5796300F8E4BD /* ElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementKind.swift; sourceTree = "<group>"; };
 		6AD2003629D154FD00F4372E /* ViewBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBanner.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6AA99BD129DC1ACB001CFE4D /* Frameworks */ = {
+		6A5AE7AB29DD08320095F395 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -196,6 +196,14 @@
 			path = RealmTests;
 			sourceTree = "<group>";
 		};
+		6A5AE7AF29DD08320095F395 /* HomeViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A5AE7B029DD08320095F395 /* HomeViewModelTests.swift */,
+			);
+			path = HomeViewModelTests;
+			sourceTree = "<group>";
+		};
 		6A7F5E2429D264D90014CE24 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,21 +212,13 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
-		6AA99BD529DC1ACB001CFE4D /* HomeNetworkServiceTests */ = {
-			isa = PBXGroup;
-			children = (
-				6AA99BD629DC1ACB001CFE4D /* HomeNetworkServiceTests.swift */,
-			);
-			path = HomeNetworkServiceTests;
-			sourceTree = "<group>";
-		};
 		6AE43D7729CC2EA60058F5B7 = {
 			isa = PBXGroup;
 			children = (
 				6AE43D8229CC2EA60058F5B7 /* MS_Shopping_Demo */,
 				6A10862F29DBFAE8001F0CF3 /* HomeServiceTests */,
-				6AA99BD529DC1ACB001CFE4D /* HomeNetworkServiceTests */,
 				6A5AE7A229DD01980095F395 /* RealmTests */,
+				6A5AE7AF29DD08320095F395 /* HomeViewModelTests */,
 				6AE43D8129CC2EA60058F5B7 /* Products */,
 				117C54C997EE26629893BBE7 /* Pods */,
 				8BFD8FB98B260567010CD0D3 /* Frameworks */,
@@ -230,8 +230,8 @@
 			children = (
 				6AE43D8029CC2EA60058F5B7 /* MS_Shopping_Demo.app */,
 				6A10862E29DBFAE8001F0CF3 /* HomeServiceTests.xctest */,
-				6AA99BD429DC1ACB001CFE4D /* HomeNetworkServiceTests.xctest */,
 				6A5AE7A129DD01970095F395 /* RealmTests.xctest */,
+				6A5AE7AE29DD08320095F395 /* HomeViewModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -376,22 +376,22 @@
 			productReference = 6A5AE7A129DD01970095F395 /* RealmTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6AA99BD329DC1ACB001CFE4D /* HomeNetworkServiceTests */ = {
+		6A5AE7AD29DD08320095F395 /* HomeViewModelTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AA99BDC29DC1ACB001CFE4D /* Build configuration list for PBXNativeTarget "HomeNetworkServiceTests" */;
+			buildConfigurationList = 6A5AE7B429DD08320095F395 /* Build configuration list for PBXNativeTarget "HomeViewModelTests" */;
 			buildPhases = (
-				6AA99BD029DC1ACB001CFE4D /* Sources */,
-				6AA99BD129DC1ACB001CFE4D /* Frameworks */,
-				6AA99BD229DC1ACB001CFE4D /* Resources */,
+				6A5AE7AA29DD08320095F395 /* Sources */,
+				6A5AE7AB29DD08320095F395 /* Frameworks */,
+				6A5AE7AC29DD08320095F395 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6AA99BD929DC1ACB001CFE4D /* PBXTargetDependency */,
+				6A5AE7B329DD08320095F395 /* PBXTargetDependency */,
 			);
-			name = HomeNetworkServiceTests;
-			productName = HomeNetworkServiceTests;
-			productReference = 6AA99BD429DC1ACB001CFE4D /* HomeNetworkServiceTests.xctest */;
+			name = HomeViewModelTests;
+			productName = HomeViewModelTests;
+			productReference = 6A5AE7AE29DD08320095F395 /* HomeViewModelTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */ = {
@@ -435,7 +435,7 @@
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = 6AE43D7F29CC2EA60058F5B7;
 					};
-					6AA99BD329DC1ACB001CFE4D = {
+					6A5AE7AD29DD08320095F395 = {
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = 6AE43D7F29CC2EA60058F5B7;
 					};
@@ -462,8 +462,8 @@
 			targets = (
 				6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */,
 				6A10862D29DBFAE8001F0CF3 /* HomeServiceTests */,
-				6AA99BD329DC1ACB001CFE4D /* HomeNetworkServiceTests */,
 				6A5AE7A029DD01970095F395 /* RealmTests */,
+				6A5AE7AD29DD08320095F395 /* HomeViewModelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -485,7 +485,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6AA99BD229DC1ACB001CFE4D /* Resources */ = {
+		6A5AE7AC29DD08320095F395 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -602,11 +602,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6AA99BD029DC1ACB001CFE4D /* Sources */ = {
+		6A5AE7AA29DD08320095F395 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AA99BD729DC1ACB001CFE4D /* HomeNetworkServiceTests.swift in Sources */,
+				6A5AE7B129DD08320095F395 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,10 +655,10 @@
 			target = 6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */;
 			targetProxy = 6A5AE7A529DD01980095F395 /* PBXContainerItemProxy */;
 		};
-		6AA99BD929DC1ACB001CFE4D /* PBXTargetDependency */ = {
+		6A5AE7B329DD08320095F395 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6AE43D7F29CC2EA60058F5B7 /* MS_Shopping_Demo */;
-			targetProxy = 6AA99BD829DC1ACB001CFE4D /* PBXContainerItemProxy */;
+			targetProxy = 6A5AE7B229DD08320095F395 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -764,7 +764,7 @@
 			};
 			name = Release;
 		};
-		6AA99BDA29DC1ACB001CFE4D /* Debug */ = {
+		6A5AE7B529DD08320095F395 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -775,7 +775,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ekko.HomeNetworkServiceTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ekko.HomeViewModelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -786,7 +786,7 @@
 			};
 			name = Debug;
 		};
-		6AA99BDB29DC1ACB001CFE4D /* Release */ = {
+		6A5AE7B629DD08320095F395 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -797,7 +797,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ekko.HomeNetworkServiceTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ekko.HomeViewModelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -1005,11 +1005,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AA99BDC29DC1ACB001CFE4D /* Build configuration list for PBXNativeTarget "HomeNetworkServiceTests" */ = {
+		6A5AE7B429DD08320095F395 /* Build configuration list for PBXNativeTarget "HomeViewModelTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6AA99BDA29DC1ACB001CFE4D /* Debug */,
-				6AA99BDB29DC1ACB001CFE4D /* Release */,
+				6A5AE7B529DD08320095F395 /* Debug */,
+				6A5AE7B629DD08320095F395 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
