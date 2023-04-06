@@ -16,6 +16,13 @@ protocol HomeServiceProtocol {
 }
 
 class HomeService: HomeServiceProtocol {
+    
+    private let session: Session
+    
+    init(session: Session = Session.default) {
+        self.session = session
+    }
+    
     func fetchHomes() -> Observable<HomeModel> {
         return Observable.create { (observer) -> Disposable in
             self.fetchHomes { (error, data) in
@@ -38,7 +45,14 @@ class HomeService: HomeServiceProtocol {
         let urlString = "http://d2bab9i9pr8lds.cloudfront.net/api/home"
         guard let url = URL(string: urlString) else { return completion(NSError(domain: "no url", code: 404, userInfo: nil), nil)}
         
-        AF.request(url, method: HTTPMethod.get, parameters: nil,encoding: JSONEncoding.default, headers: nil,interceptor: nil,requestModifier: nil).responseDecodable(of: HomeModel.self) { response in
+        session.request(url,
+                   method: HTTPMethod.get,
+                   parameters: nil,
+                   encoding: JSONEncoding.default,
+                   headers: nil,
+                   interceptor: nil,
+                   requestModifier: nil)
+        .responseDecodable(of: HomeModel.self) { response in
             if let error = response.error {
                 return completion(error, nil)
             }

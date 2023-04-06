@@ -20,4 +20,9 @@ struct ViewBanner: Hashable {
         self.id = item.id
         self.image = item.image
     }
+    
+    init(id: Int, image: String) {
+        self.id = id
+        self.image = image
+    }
 }
