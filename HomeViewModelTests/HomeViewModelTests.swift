@@ -143,7 +143,7 @@ final class HomeViewModelTests: XCTestCase {
         sut.pushGoods.subscribe(onNext: { goods in
             print("굿즈 \(goods)")
             if let filteredGoods = goods.first(where: { $0.id == 200 }) {
-                XCTAssertEqual(filteredGoods.isZzim, false)
+                XCTAssertEqual(filteredGoods.is_new, true)
                 expectation.fulfill()
             } else {
                 XCTFail()

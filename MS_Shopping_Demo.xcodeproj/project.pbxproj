@@ -20,6 +20,7 @@
 		6A7F5E2329D1FD0F0014CE24 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7F5E2229D1FD0F0014CE24 /* RealmSwift */; };
 		6A7F5E2629D264FA0014CE24 /* ZzimGoods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F5E2529D264FA0014CE24 /* ZzimGoods.swift */; };
 		6A7F5E2829D278010014CE24 /* ZzimViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F5E2729D278010014CE24 /* ZzimViewModel.swift */; };
+		6A8EF5FC29DE9862004C085F /* HomeViewModel_R.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8EF5FB29DE9862004C085F /* HomeViewModel_R.swift */; };
 		6AA2C98E29CC9E4600D560FB /* BannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA2C98D29CC9E4600D560FB /* BannerCell.swift */; };
 		6AA2C99029CC9E6A00D560FB /* GoodsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA2C98F29CC9E6A00D560FB /* GoodsCell.swift */; };
 		6AA99B8B29DC0A2C001CFE4D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6AA99B8A29DC0A2C001CFE4D /* Realm */; };
@@ -80,6 +81,7 @@
 		6A5AE7B029DD08320095F395 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		6A7F5E2529D264FA0014CE24 /* ZzimGoods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzimGoods.swift; sourceTree = "<group>"; };
 		6A7F5E2729D278010014CE24 /* ZzimViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzimViewModel.swift; sourceTree = "<group>"; };
+		6A8EF5FB29DE9862004C085F /* HomeViewModel_R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel_R.swift; sourceTree = "<group>"; };
 		6AA2C98D29CC9E4600D560FB /* BannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCell.swift; sourceTree = "<group>"; };
 		6AA2C98F29CC9E6A00D560FB /* GoodsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsCell.swift; sourceTree = "<group>"; };
 		6AA99B8E29DC0A63001CFE4D /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +258,7 @@
 				6A7F5E2729D278010014CE24 /* ZzimViewModel.swift */,
 				6AD2003629D154FD00F4372E /* ViewBanner.swift */,
 				6AD2003829D156D700F4372E /* ViewGoods.swift */,
+				6A8EF5FB29DE9862004C085F /* HomeViewModel_R.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A8EF5FC29DE9862004C085F /* HomeViewModel_R.swift in Sources */,
 				6A7F5E2629D264FA0014CE24 /* ZzimGoods.swift in Sources */,
 				6AA2C99029CC9E6A00D560FB /* GoodsCell.swift in Sources */,
 				6A10862629DBC1CF001F0CF3 /* MockURLProtocol.swift in Sources */,
