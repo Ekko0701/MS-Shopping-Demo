@@ -19,4 +19,4 @@ jobs:
     - name: Build
       run: |
         pod install --repo-update --clean-install
-        xcodebuild clean test -workspace MS_Shopping_Demo.xcworkspace -scheme MS_Shopping_Demo -destination 'platform=iOS Simulator,name=iPhone 14,OS=lastest'
+        xcodebuild clean test -workspace MS_Shopping_Demo.xcworkspace -scheme MS_Shopping_Demo -destination 'platform=iOS Simulator,name=iPhone 14'
