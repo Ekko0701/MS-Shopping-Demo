@@ -6,10 +6,9 @@ target 'MS_Shopping_Demo' do
   use_frameworks!
 
   # Pods for MS_Shopping_Demo
+  pod 'Alamofire'
   pod 'SnapKit', '~> 5.6.0'
   pod 'Then'
-  pod 'Kingfisher', '~> 7.6.1'
-  pod 'Alamofire'
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
   pod 'RxViewController'
@@ -19,9 +18,8 @@ target 'MS_Shopping_Demo' do
       # Pods for testing
 
       pod 'SnapKit', '~> 5.6.0'
-      pod 'Then'
-      pod 'Kingfisher', '~> 7.6.1'
       pod 'Alamofire'
+      pod 'Then'
       pod 'RxSwift', '6.5.0'
       pod 'RxCocoa', '6.5.0'
       pod 'RxViewController'
@@ -30,8 +28,6 @@ target 'MS_Shopping_Demo' do
       target 'HomeViewModelTests' do
       inherit! :search_paths
       # Pods for testing
-  
-      pod 'Kingfisher', '~> 7.6.1'
       pod 'Alamofire'
       pod 'RxSwift', '6.5.0'
       pod 'RxCocoa', '6.5.0'
