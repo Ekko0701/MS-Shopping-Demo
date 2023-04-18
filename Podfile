@@ -8,7 +8,7 @@ target 'MS_Shopping_Demo' do
   # Pods for MS_Shopping_Demo
   pod 'SnapKit', '~> 5.6.0'
   pod 'Then'
-  pod 'Kingfisher', '~> 7.0'
+  pod 'Kingfisher', '~> 7.6.1'
   pod 'Alamofire'
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
@@ -20,7 +20,7 @@ target 'MS_Shopping_Demo' do
 
       pod 'SnapKit', '~> 5.6.0'
       pod 'Then'
-      pod 'Kingfisher', '~> 7.0'
+      pod 'Kingfisher', '~> 7.6.1'
       pod 'Alamofire'
       pod 'RxSwift', '6.5.0'
       pod 'RxCocoa', '6.5.0'
@@ -31,7 +31,7 @@ target 'MS_Shopping_Demo' do
       inherit! :search_paths
       # Pods for testing
   
-      pod 'Kingfisher', '~> 7.0'
+      pod 'Kingfisher', '~> 7.6.1'
       pod 'Alamofire'
       pod 'RxSwift', '6.5.0'
       pod 'RxCocoa', '6.5.0'
