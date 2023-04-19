@@ -1,0 +1,26 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :unit_test do
+    scan(workspace: "MS_Shopping_Demo.xcworkspace",
+         scheme: "MS_Shopping_Demo",
+         devices: ["iPhone 14"],
+         slack_url: "https://hooks.slack.com/services/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")
+  end
+end
